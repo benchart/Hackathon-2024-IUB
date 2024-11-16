@@ -1,5 +1,9 @@
+from flask import Flask, request, jsonify
 from sqlalchemy import create_engine , text
 import urllib
+
+app = Flask(__name__)
+
 
 username = 'huntjac'
 password = 'Nn39khnr!'
@@ -14,4 +18,4 @@ engine = create_engine(connection_string)
 
 # with engine.connect() as connection:
 #     result = connection.execute(text('SELECT user_id FROM Contacts'))
-#     print(result.fetchone())
+#     print(result.fetchall())
