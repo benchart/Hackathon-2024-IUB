@@ -1,6 +1,8 @@
 from flask import Flask, request, jsonify
 from sqlalchemy import create_engine , text
-from searchContacts import contactsVarList
+from searchContacts import contactsVarList , searchContacts
+from searchProducts import productsVarList , searchProducts
+from searchRepo import repoVarList , searchRepo
 import urllib
 
 app = Flask(__name__)
@@ -13,7 +15,7 @@ database = 'hiccup-hackathon'
 driver = 'ODBC Driver 18 for SQL Server'
 
 connection_string = f'mssql+pyodbc://{username}:{password}@{server}/{database}?driver={urllib.parse.quote_plus(driver)}&Encrypt=yes&TrustServerCertificate=no&Connection Timeout=30'
-engine = create_engine(connection_string)
+contactsDB = create_engine(connection_string)
 
 
 # with engine.connect() as connection:
