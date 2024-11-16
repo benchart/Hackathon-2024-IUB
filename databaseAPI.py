@@ -1,4 +1,5 @@
 from sqlalchemy import create_engine , text
+from searchContacts import contactsVarList
 import urllib
 
 username = 'huntjac'
@@ -9,7 +10,6 @@ driver = 'ODBC Driver 18 for SQL Server'
 
 connection_string = f'mssql+pyodbc://{username}:{password}@{server}/{database}?driver={urllib.parse.quote_plus(driver)}&Encrypt=yes&TrustServerCertificate=no&Connection Timeout=30'
 engine = create_engine(connection_string)
-
 
 
 # with engine.connect() as connection:
