@@ -1,4 +1,4 @@
-from databaseAPI import contactsDB
+from Search.databaseAPI import contactsDB
 
 contactTable = 'Contacts'
 firstNameCol = 'first_name'

@@ -1,4 +1,4 @@
-from databaseAPI import contactsDB
+from Search.databaseAPI import contactsDB
 
 repoTable = 'Repo'
 repoNameCol = 'repo_name'
