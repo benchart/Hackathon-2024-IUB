@@ -26,4 +26,3 @@ def search(query):
     cursor.execute(searchString, (query, query, query, query, query, query))
     return result.fetchAll()
 
-searchContactsResult = search(query)
