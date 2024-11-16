@@ -1,0 +1,18 @@
+{
+    "configurations": [
+        
+        {
+            "type": "debugpy",
+            "request": "launch",
+            "name": "Launch Flask App",
+            "program": "${workspaceFolder}/app.py",
+            "args": [],
+            "env": {
+                "FLASK_APP": "app.py",
+                "FLASK_ENV": "development"
+            },
+            "jinja": true,
+            "justMyCode": true
+        }
+    ]
+}
