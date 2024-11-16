@@ -1,3 +1,5 @@
+from databaseAPI import contactsDB
+
 productsTable = 'Products'
 productNameCol = 'product_name'
 userIDCol = 'user_id'
@@ -15,5 +17,5 @@ productsVarList = [productsTable, productNameCol, userIDCol, productIDCol, searc
 def searchProducts(query):
     query = str('%' + query.lower() + '%')
     escaped_query = query.replace('%', '\\%').replace('_', '\\_')
-    cursor.execute(searchString, (query, query))
+    result = contactsDB.execute(searchString, (escaped_query, escaped_query))
     return result.fetchAll()

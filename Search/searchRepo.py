@@ -1,3 +1,5 @@
+from databaseAPI import contactsDB
+
 repoTable = 'Repo'
 repoNameCol = 'repo_name'
 userIDCol = 'user_id'
@@ -15,5 +17,5 @@ repoVarList = [repoTable, repoNameCol, userIDCol, repoIDCol, searchString]
 def searchRepo(query):
     query = str('%' + query.lower() + '%')
     escaped_query = query.replace('%', '\\%').replace('_', '\\_')
-    cursor.execute(searchString, (query, query))
+    result = contactsDB.execute(searchString, (escaped_query, escaped_query))
     return result.fetchAll()
