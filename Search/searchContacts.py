@@ -1,3 +1,5 @@
+from Search.databaseAPI import contactsDB
+
 contactTable = 'Contacts'
 firstNameCol = 'first_name'
 lastNameCol = 'last_name'
@@ -23,6 +25,6 @@ contactsVarList = [contactTable, firstNameCol, lastNameCol, emailCol, usernameCo
 def searchContacts(query):
     query = str('%' + query.lower() + '%')
     escaped_query = query.replace('%', '\\%').replace('_', '\\_')
-    cursor.execute(searchString, (query, query, query, query, query, query))
+    result = contactsDB.execute(searchString, (escaped_query, escaped_query, escaped_query, escaped_query, escaped_query, escaped_query))
     return result.fetchAll()
 
