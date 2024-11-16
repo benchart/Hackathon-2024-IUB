@@ -20,6 +20,23 @@ driver = 'ODBC Driver 18 for SQL Server'
 connection_string = f'mssql+pyodbc://{username}:{password}@{server}/{database}?driver={urllib.parse.quote_plus(driver)}&Encrypt=yes&TrustServerCertificate=no&Connection Timeout=30'
 contactsDB = create_engine(connection_string)
 
+entryFieldsList = []
+
+#Add a new entry into the contacts table using a series of parameters
+def addEntry(entryFieldsList):
+    with contactsDB.connect() as connection:
+        queryString = f"INSERT INTO {contactsVarList[0]} VALUES (:firstName, :lastName, :email, :username, :location, :position, :id)"
+        result = connection.execute(text(queryString), {
+                                        'firstName': entryFieldsList[0],
+                                        'lastName': entryFieldsList[1], 
+                                        'email': entryFieldsList[2], 
+                                        'username': entryFieldsList[3], 
+                                        'location': entryFieldsList[4],  
+                                        'position': entryFieldsList[5], 
+                                        'id': entryFieldsList[6], 
+                                    })
+        
+
 #Store the userIDs returned by the search function and return as a combined set
 def searchDB(query):
     contactsResults = searchContacts(query)
