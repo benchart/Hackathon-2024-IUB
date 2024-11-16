@@ -5,11 +5,14 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+# Initialize db with the app
 db.init_app(app)
 
+# Ensure the tables are created before the first request
 @app.before_first_request
 def create_tables():
-    db.create_all()
+    with app.app_context():  # Ensure you are in the app context
+        db.create_all()
 
 @app.route('/')
 def home():
