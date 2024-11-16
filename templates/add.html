@@ -2,10 +2,127 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add New Contact</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        * {box-sizing: border-box;}
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .topnav {
+            overflow: hidden;
+            background-color: #307c68;
+        }
+
+        .topnav a {
+            float: left;
+            display: block;
+            color: whitesmoke;
+            text-align: center;
+            padding: 14px 224.4px;
+            text-decoration: none;
+            font-size: 17px;
+        }
+
+        .topnav a:hover {
+            background-color: #48b296;
+            color: white;
+        }
+
+        .topnav a.active {
+            background-color: #48b296;
+            color: white;
+        }
+
+        .topnav .search-container {
+            float: left;
+            width: 99%;
+            margin-left: 8px;
+        }
+
+        .topnav input[type="text"] {
+            float: left;
+            width: 97%;
+            padding: 6px;
+            font-size: 17px;
+            border: none;
+            margin-top: 8px;
+        }
+
+        .topnav .search-container button {
+            float: right;
+            padding: 6px 10px;
+            margin-top: 8px;
+            background: #ddd;
+            font-size: 17px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .topnav .search-container button:hover {
+            background: #ccc;
+        }
+
+        @media screen and (max-width: 600px) {
+            .topnav .search-container {
+                width: 100%;
+                float: none;
+            }
+            .topnav a, .topnav input[type="text"], .topnav .search-container button {
+                float: none;
+                display: block;
+                text-align: left;
+                width: 100%;
+                margin: 0;
+                padding: 14px;
+            }
+            .topnav input[type="text"] {
+                border: 1px solid #ccc;
+            }
+        }
+        img {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            }
+
+        .plus-button:hover {
+            background-color: #48b296;
+        }
+        .plus-button {
+            font-size: 50px;
+            width: 100px;
+            height: 100px;
+            background-color: #307c68;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            margin: 100px;
+        }
+    </style>
 </head>
-<body>
+<body style="background-color:#256252;">
     <h1>Add a New Point of Contact</h1>
+    <img src="Hiccup_Logo.jpg" alt="Hiccup Logo" width="600" height="150">
+    <div class="topnav">
+        <a href="home.html">Home</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+        <div class="search-container">
+            <form action="search.html" method="GET">
+                <input type="text" placeholder="Search for a Point of Contact" name="query">
+                <button type="submit"><i class="fa fa-search"></i></button>
+            </form>
+        </div>
+    </div>
     <form method="POST">
         First Name: <input type="text" name="first_name"><br>
         Last Name: <input type="text" name="last_name"><br>
