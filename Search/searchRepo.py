@@ -12,7 +12,7 @@ repoVarList = [repoTable, repoNameCol, userIDCol, repoIDCol, searchString]
 # + repoNameCol + ' LIKE ? OR '
 # + repoIDCol + ' LIKE ?;'
 
-def search(query):
+def searchRepo(query):
     query = str('%' + query.lower() + '%')
     escaped_query = query.replace('%', '\\%').replace('_', '\\_')
     cursor.execute(searchString, (query, query))

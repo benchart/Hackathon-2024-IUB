@@ -20,7 +20,7 @@ contactsVarList = [contactTable, firstNameCol, lastNameCol, emailCol, usernameCo
 # + locationCol + ' LIKE ? OR '
 # + positionCol + ' LIKE ?;'
 
-def search(query):
+def searchContacts(query):
     query = str('%' + query.lower() + '%')
     escaped_query = query.replace('%', '\\%').replace('_', '\\_')
     cursor.execute(searchString, (query, query, query, query, query, query))

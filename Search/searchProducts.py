@@ -12,7 +12,7 @@ productsVarList = [productsTable, productNameCol, userIDCol, productIDCol, searc
 # + productNameCol + ' LIKE ? OR '
 # + productIDCol + ' LIKE ?;'
 
-def search(query):
+def searchProducts(query):
     query = str('%' + query.lower() + '%')
     escaped_query = query.replace('%', '\\%').replace('_', '\\_')
     cursor.execute(searchString, (query, query))
