@@ -2,25 +2,19 @@ from flask import Flask, render_template, request
 from models import db, Product, Contact
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'Server=tcp:hiccup-hackathon-24.database.windows.net,1433;Initial Catalog=hiccup-hackathon;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;Authentication="Active Directory Default";'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # Initialize db with the app
 db.init_app(app)
 
-# Ensure the tables are created before the first request
-@app.before_first_request
-def create_tables():
-    with app.app_context():  # Ensure you are in the app context
-        db.create_all()
-
 @app.route('/')
 def home():
     return render_template('home.html')
 
-@app.route('/search', methods=['GET', 'POST'])
+@app.route('/search', methods=['GET'])
 def search():
-    if request.method == 'POST':
+    if request.method == 'GET':
         product_name = request.form.get('product_name')
         repository_name = request.form.get('repository_name')
         product = Product.query.filter(
@@ -33,7 +27,7 @@ def search():
         return render_template('search.html', result=poc)
     return render_template('search.html')
 
-@app.route('/add', methods=['GET', 'POST'])
+@app.route('/add', methods=['POST'])
 def add():
     if request.method == 'POST':
         product_name = request.form['product_name']
