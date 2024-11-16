@@ -1,4 +1,5 @@
 from Search.databaseAPI import contactsDB
+from sqlalchemy import text
 
 productsTable = 'Products'
 productNameCol = 'product_name'
@@ -9,12 +10,15 @@ query = ''
 #Store the variables in an Array to be passed to the API file
 productsVarList = [productsTable, productNameCol, userIDCol, productIDCol]
 
-searchString = f'"SELECT "' + userIDCol + ' FROM ' + productsTable + ' WHERE ' 
-+ productNameCol + ' LIKE ? OR '
-+ productIDCol + ' LIKE ?;'
+searchString = f"""
+        SELECT {userIDCol}
+        FROM {productsTable}
+        WHERE {productNameCol} LIKE :query OR {productIDCol} LIKE :query;
+"""
 
 def searchProducts(query):
-    query = str('%' + query.lower() + '%')
+    query = f"%{query.lower()}%"
     escaped_query = query.replace('%', '\\%').replace('_', '\\_')
-    result = contactsDB.execute(searchString, (escaped_query, escaped_query))
+    with contactsDB.connect() as connection:
+        result = connection.execute(text(searchString), {'query': escaped_query})
     return result.fetchAll()
