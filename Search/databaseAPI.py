@@ -25,7 +25,7 @@ entryFieldsList = []
 #Add a new entry into the contacts table using a series of parameters
 def addEntry(entryFieldsList):
     with contactsDB.connect() as connection:
-        queryString = f"INSERT INTO {contactsVarList[0]} VALUES (:firstName, :lastName, :email, :username, :location, :position, :id)"
+        queryString = f"INSERT INTO {contactsVarList[0]} VALUES (:firstName, :lastName, :email, :username, :location, :position, :id);"
         result = connection.execute(text(queryString), {
                                         'firstName': entryFieldsList[0],
                                         'lastName': entryFieldsList[1], 
@@ -33,12 +33,12 @@ def addEntry(entryFieldsList):
                                         'username': entryFieldsList[3], 
                                         'location': entryFieldsList[4],  
                                         'position': entryFieldsList[5], 
-                                        'id': entryFieldsList[6], 
+                                        'id': entryFieldsList[6] 
                                     })
         
 
 #Store the userIDs returned by the search function and return as a combined set
-def searchDB(query):
+def getIDSearch(query):
     contactsResults = searchContacts(query)
     productsResults = searchProducts(query)
     repoResults = searchRepo(query)
@@ -46,6 +46,17 @@ def searchDB(query):
 
     return combinedUserID
 
+def searchDB(query):
+    idSet = getIDSearch(query)
+    userArray = [1][7]
+    for id in idSet:
+       with contactsDB.connect() as connection:
+        result = connection.execute(text(f"SELECT * FROM :contactsTable WHERE :id = {id};"), {
+                                            'contactsTable': entryFieldsList[0],
+                                            'id': entryFieldsList[6]
+                                        })
+        userArray.append(result)
+    return userArray
 
 
 # with engine.connect() as connection:
