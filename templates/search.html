@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search for Contact</title>
+</head>
+<body>
+    <h1>Search for a Point of Contact</h1>
+    <form method="POST">
+        Product Name: <input type="text" name="product_name"><br>
+        Repository Name: <input type="text" name="repository_name"><br>
+        <button type="submit">Search</button>
+    </form>
+    
+    {% if result %}
+        <h2>Contact Found</h2>
+        <p>{{ result.first_name }} {{ result.last_name }}</p>
+        <p>Email: {{ result.email }}</p>
+        <p>Chat Username: {{ result.chat_username }}</p>
+        <p>Location: {{ result.location }}</p>
+        <p>Title: {{ result.title }}</p>
+    {% elif error %}
+        <p>{{ error }}</p>
+    {% endif %}
+</body>
+</html>

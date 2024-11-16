@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add New Contact</title>
+</head>
+<body>
+    <h1>Add a New Point of Contact</h1>
+    <form method="POST">
+        First Name: <input type="text" name="first_name"><br>
+        Last Name: <input type="text" name="last_name"><br>
+        Email: <input type="email" name="email"><br>
+        Chat Username: <input type="text" name="chat_username"><br>
+        Location: <input type="text" name="location"><br>
+        Title: <input type="text" name="title"><br>
+        Product Name: <input type="text" name="product_name"><br>
+        Repository Name: <input type="text" name="repository_name"><br>
+        <button type="submit">Add Contact</button>
+    </form>
+
+    {% if success %}
+        <p>Contact added successfully!</p>
+    {% endif %}
+</body>
+</html>
