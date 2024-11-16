@@ -25,8 +25,17 @@ entryFieldsList = []
 #Add a new entry into the contacts table using a series of parameters
 def addEntry(entryFieldsList):
     with contactsDB.connect() as connection:
-        result = connection.execute(text('INSERT INTO ' + contactsVarList[0] + ' VALUES '))
-        print(result.fetchall())
+        queryString = f"INSERT INTO {contactsVarList[0]} VALUES (:firstName, :lastName, :email, :username, :location, :position, :id)"
+        result = connection.execute(text(queryString), {
+                                        'firstName': entryFieldsList[0],
+                                        'lastName': entryFieldsList[1], 
+                                        'email': entryFieldsList[2], 
+                                        'username': entryFieldsList[3], 
+                                        'location': entryFieldsList[4],  
+                                        'position': entryFieldsList[5], 
+                                        'id': entryFieldsList[6], 
+                                    })
+        
 
 #Store the userIDs returned by the search function and return as a combined set
 def searchDB(query):
