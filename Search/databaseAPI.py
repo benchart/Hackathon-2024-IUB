@@ -1,6 +1,8 @@
 from flask import Flask, request, jsonify
 from sqlalchemy import create_engine , text
-from searchContacts import contactsVarList
+from searchContacts import contactsVarList , searchContacts
+from searchProducts import productsVarList , searchProducts
+from searchRepo import repoVarList , searchRepo
 import urllib
 
 app = Flask(__name__)
