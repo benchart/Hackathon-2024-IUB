@@ -9,18 +9,17 @@ locationCol = 'location'
 positionCol = 'position'
 userIDCol = 'user_id'
 query = ''
-searchString = ''
 
 #Store the variables in an Array to be passed to the API file
-contactsVarList = [contactTable, firstNameCol, lastNameCol, emailCol, usernameCol, locationCol, positionCol, userIDCol, searchString]
+contactsVarList = [contactTable, firstNameCol, lastNameCol, emailCol, usernameCol, locationCol, positionCol, userIDCol]
 
-# searchString = f'"SELECT "' + userIDCol + ' FROM ' + contactTable + ' WHERE ' 
-# + firstNameCol + ' LIKE ? OR '
-# + lastNameCol + ' LIKE ? OR '
-# + emailCol + ' LIKE ? OR '
-# + usernameCol + ' LIKE ? OR '
-# + locationCol + ' LIKE ? OR '
-# + positionCol + ' LIKE ?;'
+searchString = f'"SELECT "' + userIDCol + ' FROM ' + contactTable + ' WHERE ' 
++ firstNameCol + ' LIKE ? OR '
++ lastNameCol + ' LIKE ? OR '
++ emailCol + ' LIKE ? OR '
++ usernameCol + ' LIKE ? OR '
++ locationCol + ' LIKE ? OR '
++ positionCol + ' LIKE ?;'
 
 def searchContacts(query):
     query = str('%' + query.lower() + '%')
