@@ -32,7 +32,7 @@ def getIDSearch(query):
     contactsResults = searchContacts(query)
     productsResults = searchProducts(query)
     repoResults = searchRepo(query)
-    combinedUserID = set(contactsResults) | set(productsResults) | set(repoResults)
+    combinedUserID = contactsResults | productsResults | repoResults
 
     return combinedUserID
 
