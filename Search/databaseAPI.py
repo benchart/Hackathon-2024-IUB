@@ -1,5 +1,7 @@
 from flask import Flask, request, jsonify
-from APIengine import contactsDB  
+from APIengine import iniEngine
+contactsDB = iniEngine()
+
 from sqlalchemy import create_engine , text
 from searchContacts import contactsVarList , searchContacts, contactTable
 from searchProducts import productsVarList , searchProducts, productsTable
@@ -7,6 +9,8 @@ from searchRepo import repoVarList , searchRepo, repoTable
 import urllib
 
 app = Flask(__name__)
+
+
 
 #Add a new entry into the contacts table using a series of parameters
 def addContactEntry(entryFieldsList):
@@ -101,4 +105,3 @@ def searchDB(query):
 
 # entryFieldsList2 = ['Ben', 'Hartman', 'benchartman@iu.edu', 'benchartman', 'Bloomington', 'Student', '4']
 # addEntry(entryFieldsList2)
-searchDB("Jacob")
