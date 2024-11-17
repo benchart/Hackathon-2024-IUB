@@ -104,4 +104,4 @@ def searchDB(query):
 # entryFieldsList2 = ['Ben', 'Hartman', 'benchartman@iu.edu', 'benchartman', 'Bloomington', 'Student', '4']
 # addEntry(entryFieldsList2)
 
-print(searchDB("par"))
+print(searchDB("a"))
