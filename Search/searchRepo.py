@@ -21,7 +21,7 @@ def searchRepo(query):
     with contactsDB.connect() as connection:
         result = connection.execute(searchString, {'query': searchTerm})
         rows = result.fetchall()
-        user_ids_repo = [row for row in rows]
+        user_ids_repo = {row[0] for row in rows}
     return user_ids_repo
 
 print(searchRepo("dummy repo"))
