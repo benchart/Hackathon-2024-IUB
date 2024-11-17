@@ -4,7 +4,6 @@ from sqlalchemy import create_engine , text
 from searchContacts import contactsVarList , searchContacts, contactTable
 from searchProducts import productsVarList , searchProducts, productsTable
 from searchRepo import repoVarList , searchRepo, repoTable
-import urllib
 
 app = Flask(__name__)
 
