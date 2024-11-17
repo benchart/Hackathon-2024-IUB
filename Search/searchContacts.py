@@ -29,3 +29,5 @@ def searchContacts(query):
     with contactsDB.connect() as connection:
         result = connection.execute(searchString, {'query': searchTerm})
     return result.fetchall()
+
+print(searchContacts("Jacob"))

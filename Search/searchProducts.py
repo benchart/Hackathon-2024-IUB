@@ -10,16 +10,13 @@ productIDCol = 'product_id'
 productsVarList = [productsTable, productNameCol, userIDCol, productIDCol]
 
 searchString = f"""
-        SELECT {userIDCol}
-        FROM {productsTable}
-        WHERE {productNameCol} LIKE :query OR {productIDCol} LIKE :query;
+        SELECT {productsVarList[2]}
+        FROM {productsVarList[0]}
+        WHERE {productsVarList[1]} LIKE :query OR {productIDCol} LIKE :query;
 """
 
 def searchProducts(query):
-    query = f"%{query.lower()}%"
-    escaped_query = query.replace('%', '\\%').replace('_', '\\_')
+    searchTerm = f"%{query}%"
     with contactsDB.connect() as connection:
-        result = connection.execute(text(searchString), {'query': escaped_query})
-    if(result == None):
-        return "No results found"
+        result = connection.execute(searchString, {'query': searchTerm})
     return result.fetchall()

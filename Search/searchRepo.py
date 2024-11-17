@@ -10,17 +10,14 @@ repoIDCol = 'repo_id'
 repoVarList = [repoTable, repoNameCol, userIDCol, repoIDCol]
 
 searchString = f"""
-        SELECT {userIDCol}
-        FROM {repoTable}
-        WHERE {repoNameCol} LIKE :query 
-        OR {repoIDCol} LIKE :query;
+        SELECT {repoVarList[2]}
+        FROM {repoVarList[0]}
+        WHERE {repoVarList[1]} LIKE :query 
+        OR {repoVarList[3]} LIKE :query;
 """
 
 def searchRepo(query):
-    query = f"%{query.lower()}%"
-    escaped_query = query.replace('%', '\\%').replace('_', '\\_')
+    searchTerm = f"%{query}%"
     with contactsDB.connect() as connection:
-        result = connection.execute(text(searchString), {'query': escaped_query})
-    if(result == None):
-        return "No results found"
+        result = connection.execute(searchString, {'query': searchTerm})
     return result.fetchall()
