@@ -2,8 +2,8 @@ from flask import Flask, request, jsonify
 from APIengine import contactsDB    
 from sqlalchemy import create_engine , text
 from searchContacts import contactsVarList , searchContacts, contactTable
-from searchProducts import productsVarList , searchProducts
-from searchRepo import repoVarList , searchRepo
+from searchProducts import productsVarList , searchProducts, productsTable
+from searchRepo import repoVarList , searchRepo, repoTable
 import urllib
 
 app = Flask(__name__)
@@ -16,8 +16,7 @@ entryFieldsList2 = []
 def addEntry(entryFieldsList):
     with contactsDB.connect() as connection:
         queryString = f"INSERT INTO {contactTable} ({contactsVarList[1]}, {contactsVarList[2]}, {contactsVarList[3]}, {contactsVarList[4]}, {contactsVarList[5]}, {contactsVarList[6]}, {contactsVarList[7]}) VALUES (:firstName, :lastName, :email, :username, :location, :position, :id);"
-        print(queryString)
-        result = connection.execute(text(queryString), {
+        connection.execute(text(queryString), {
                         'firstName': entryFieldsList[0],
                         'lastName': entryFieldsList[1], 
                         'email': entryFieldsList[2], 
@@ -33,19 +32,22 @@ def addEntry(entryFieldsList):
 #Remove an entry from the database with the matching paraeters
 def removeEntry(entryFieldsList):
     with contactsDB.connect() as connection:
-        queryString = f"""DELETE FROM {contactTable} WHERE {contactsVarList[1]} = :firstName
-                         AND {contactsVarList[2]} = :lastName
-                         AND {contactsVarList[3]} = :email
-                         AND {contactsVarList[4]} = username
-                         AND {contactsVarList[5]} = location
-                         AND {contactsVarList[6]} = :id;"""
-        result = connection.execute(text(queryString), {
-                        'firstName': entryFieldsList[0],
-                        'lastName': entryFieldsList[1], 
-                        'email': entryFieldsList[2], 
-                        'username': entryFieldsList[3], 
-                        'location': entryFieldsList[4],  
-                        'position': entryFieldsList[5], 
+
+        #Delete from Contacts
+        queryString = f"DELETE FROM {contactTable} WHERE {contactsVarList[7]} = :id;"
+        connection.execute(text(queryString), {
+                        'id': entryFieldsList[6] 
+                        })
+        
+        #Delete from Products
+        queryString = f"DELETE FROM {productsTable} WHERE {contactsVarList[7]} = :id;"
+        connection.execute(text(queryString), {
+                        'id': entryFieldsList[6] 
+                        })
+        
+        #Delete from Repo
+        queryString = f"DELETE FROM {repoTable} WHERE {contactsVarList[7]} = :id;"
+        connection.execute(text(queryString), {
                         'id': entryFieldsList[6] 
                         })
         
