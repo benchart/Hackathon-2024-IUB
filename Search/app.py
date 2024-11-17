@@ -16,16 +16,21 @@ def index():
 
 
 @app.route('/add-repo', methods=['POST'])
-def add_Repo(repoName):
+def add_Repo():
     try:
-
-        #Adds the corresponding repo entry
-        addRepoEntry(__getCurrentID__(), repoName)
+        
+        # Get the JSON data from the request
+        data = request.get_json()
+        required_fields = ['repoName']  # repoName is required for this endpoint
+        validate_fields(data, required_fields)
+        
+        # Add the repository entry
+        addRepoEntry(__getCurrentID__(), data['repoName'])
 
         return jsonify({
             "status": "success",
             "message": "Repository link added successfully!",
-            "Repository name": repoName
+            "Repository name": data['repoName']
         })
 
     except ValueError as ve:
@@ -42,16 +47,20 @@ def add_Repo(repoName):
 
 
 @app.route('/add-product', methods=['POST'])
-def add_Product(productName):
+def add_Product():
     try:
 
-        #Adds the product using the specified information
-        addProductEntry(__getCurrentID__(), productName)
+        # Get the JSON data from the request
+        data = request.get_json()
+        required_fields = ['productName']  # productName is required for this endpoint
+        validate_fields(data, required_fields)
+        #Add the product entry
+        addProductEntry(__getCurrentID__(), data['productName'])
 
         return jsonify({
             "status": "success",
             "message": "Product link added successfully!",
-            "Product name": productName
+            "Product name": data['productName']
         })
 
     except ValueError as ve:
