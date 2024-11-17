@@ -53,5 +53,5 @@ def searchDB(query):
 # with engine.connect() as connection:
 #     result = connection.execute(text('SELECT user_id FROM Contacts'))
 #     print(result.fetchall())
-
-print(searchDB("Jacob"))
+print(getIDSearch("Jacob"))
+# print(searchDB("Jacob"))
