@@ -12,7 +12,7 @@ def validate_fields(data, required_fields):
     
 @app.route('/')
 def index():
-    return render_template('test.html')
+    return render_template('home.html')
 
 
 @app.route('/add-repo', methods=['POST'])
