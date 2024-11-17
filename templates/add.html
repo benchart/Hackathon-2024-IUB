@@ -23,7 +23,7 @@
             display: block;
             color: whitesmoke;
             text-align: center;
-            padding: 14px 224.4px;
+            padding: 1% 14.99%;
             text-decoration: none;
             font-size: 17px;
         }
@@ -41,7 +41,7 @@
         .topnav .search-container {
             float: left;
             width: 99%;
-            margin-left: 8px;
+            margin-left: 0.55%;
         }
 
         .topnav input[type="text"] {
@@ -50,13 +50,13 @@
             padding: 6px;
             font-size: 17px;
             border: none;
-            margin-top: 8px;
+            margin-top: 0.55%;
         }
 
         .topnav .search-container button {
             float: right;
-            padding: 6px 10px;
-            margin-top: 8px;
+            padding: 0.4% 0.6%;
+            margin-top: 0.55%;
             background: #ddd;
             font-size: 17px;
             border: none;
@@ -124,19 +124,23 @@
         </div>
     </div>
     <form method="POST">
-        First Name: <input type="text" name="first_name"><br>
-        Last Name: <input type="text" name="last_name"><br>
-        Email: <input type="email" name="email"><br>
-        Chat Username: <input type="text" name="chat_username"><br>
-        Location: <input type="text" name="location"><br>
-        Title: <input type="text" name="title"><br>
-        Product Name: <input type="text" name="product_name"><br>
-        Repository Name: <input type="text" name="repository_name"><br>
+        <p style="color:white;">First Name: <input type="text" name="first_name"></p><br>
+        <p style="color:white;">Last Name: <input type="text" name="last_name"></p><br>
+        <p style="color:white;">Email: <input type="email" name="email"></p><br>
+        <p style="color:white;">Chat Username: <input type="text" name="chat_username"></p><br>
+        <p style="color:white;">Location: <input type="text" name="location"></p><br>
+        <p style="color:white;">Title: <input type="text" name="title"></p><br>
+        <p style="color:white;">Product Name: <input type="text" name="product_name"></p><br>
+        <p style="color:white;">Repository Name: <input type="text" name="repository_name"></p><br>
         <button type="submit">Add Contact</button>
     </form>
 
-    {% if success %}
+
+    <if success>
         <p style="color:white;">Contact added successfully!</p>
-    {% endif %}
+    </if>
+    <endif fail>
+
+    </endif>
 </body>
 </html>
