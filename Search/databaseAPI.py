@@ -1,15 +1,15 @@
-from flask import Flask, request, jsonify
+from flask import Flask
 from APIengine import contactsDB
-from sqlalchemy import create_engine , text
-from searchContacts import contactsVarList , searchContacts, contactTable
-from searchProducts import productsVarList , searchProducts, productsTable
-from searchRepo import repoVarList , searchRepo, repoTable
+from sqlalchemy import text
+from searchContacts import contactsVarList, searchContacts, contactTable
+from searchProducts import productsVarList, searchProducts, productsTable
+from searchRepo import repoVarList, searchRepo, repoTable
 
 app = Flask(__name__)
 
 
 #Determines the current user_id value using the number of rows in the contact table
-def _getCurrentID_():
+def __getCurrentID__():
     with contactsDB.connect() as connection:
         queryString = f"SELECT COUNT({contactsVarList[7]}) FROM {contactTable};"
         result = connection.execute(text(queryString))
@@ -20,6 +20,7 @@ def _getCurrentID_():
 
 
 #Add functions, adds data to the database
+
 
 
 #Add a new entry into the contacts table using a series of parameters
@@ -33,7 +34,7 @@ def addContactEntry(entryFieldsList):
                         'username': entryFieldsList[3], 
                         'location': entryFieldsList[4],  
                         'position': entryFieldsList[5], 
-                        'id': _getCurrentID_()+1 
+                        'id': __getCurrentID__()+1 
                         })
         connection.commit()
 
