@@ -1,4 +1,4 @@
-from Search.databaseAPI import contactsDB
+from APIengine import contactsDB
 from sqlalchemy import text
 
 contactTable = 'Contacts'
@@ -9,26 +9,26 @@ usernameCol= 'username'
 locationCol = 'location'
 positionCol = 'position'
 userIDCol = 'user_id'
-query = ''
 
 #Store the variables in an Array to be passed to the API file
 contactsVarList = [contactTable, firstNameCol, lastNameCol, emailCol, usernameCol, locationCol, positionCol, userIDCol]
 
-searchString = f"""
-        SELECT {userIDCol}
-        FROM {contactTable}
-        WHERE {firstNameCol} LIKE :query 
-        OR {lastNameCol} LIKE :query
-        OR {emailCol} LIKE :query
-        OR {usernameCol} LIKE :query
-        OR {locationCol} LIKE :query
-        OR {positionCol} LIKE :query;
-"""
+searchString = text(f"""
+        SELECT {contactsVarList[7]}
+        FROM {contactsVarList[0]}
+        WHERE {contactsVarList[1]} LIKE :query 
+        OR {contactsVarList[2]} LIKE :query
+        OR {contactsVarList[3]} LIKE :query
+        OR {contactsVarList[4]} LIKE :query
+        OR {contactsVarList[5]} LIKE :query
+        OR {contactsVarList[6]} LIKE :query;
+""")
 
 def searchContacts(query):
-    query = f"%{query.lower()}%"
-    escaped_query = query.replace('%', '\\%').replace('_', '\\_')
+    searchTerm = f"%{query}%"
     with contactsDB.connect() as connection:
-        result = connection.execute(text(searchString), {'query': escaped_query})
-    return result.fetchAll()
+        result = connection.execute(searchString, {'query': searchTerm})
+        rows = set(result.fetchall())
+        user_ids = set(row for row in rows)
+    return user_ids
 
