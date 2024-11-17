@@ -1,6 +1,4 @@
-from flask import Flask, request, jsonify
-from sqlalchemy import create_engine, text
-import pyodbc
+from sqlalchemy import create_engine
 import urllib
 
 def iniEngine():
