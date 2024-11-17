@@ -9,55 +9,7 @@ def validate_fields(data, required_fields):
     missing = [field for field in required_fields if field not in data]
     if missing:
         raise ValueError(f"Missing required fields: {', '.join(missing)}")
-
-@app.route('/add-contact', methods=['POST'])
-def add_contact():
-    try:
-        #Please input your userID
-        #if(getPositionByID(data['id'] != 'Admin')):
-        #    return jsonify({
-        #    "status": "error",
-        #    "message": "You do not have the authority to alter the database."
-        #}), 400
-
-        data = request.get_json()
-        required_fields = ['firstName', 'lastName', 'email', 'username', 'location', 'position']
-        validate_fields(data, required_fields)
-
-        entryFieldsList = [
-            data['firstName'] + ' ' + data['lastName'],
-            data['email'],
-            data['username'],
-            data['location'],
-            data['position']
-        ]
-
-        #Add the contact to the database with the specificed data
-        addContactEntry(entryFieldsList)
-        if(data['repositoryName'] != None):
-            add_Repo(__getCurrentID__(), data['repositoryName'])
-        if(data['productName'] != None):
-            add_Product(__getCurrentID__(), data['productName'])
-
-        return jsonify({
-            "status": "success",
-            "message": "Contact added successfully!",
-            "firstName": data['firstName'],
-            "lastName": data['lastName']
-        })
-
-    except ValueError as ve:
-        return jsonify({
-            "status": "error",
-            "message": f"Validation error: {str(ve)}"
-        }), 400
-
-    except Exception as e:
-        return jsonify({
-            "status": "error",
-            "message": f"Failed to add contact. Error: {str(e)}"
-        }), 400
-
+    
 @app.route('/add-repo', methods=['POST'])
 def add_Repo():
     try:
@@ -130,6 +82,55 @@ def validate_id(data):
     """Validate the presence of 'id' in the request payload."""
     if 'id' not in data:
         raise ValueError("Missing required field: 'id'")
+
+@app.route('/add-contact', methods=['POST'])
+def add_contact():
+    try:
+        #Please input your userID
+        #if(getPositionByID(data['id'] != 'Admin')):
+        #    return jsonify({
+        #    "status": "error",
+        #    "message": "You do not have the authority to alter the database."
+        #}), 400
+
+        data = request.get_json()
+        required_fields = ['firstName', 'lastName', 'email', 'username', 'location', 'position']
+        validate_fields(data, required_fields)
+
+        entryFieldsList = [
+            data['firstName'] + ' ' + data['lastName'],
+            data['email'],
+            data['username'],
+            data['location'],
+            data['position']
+        ]
+
+        #Add the contact to the database with the specificed data
+        addContactEntry(entryFieldsList)
+        if data.get('repositoryName') is not None:
+            add_Repo(__getCurrentID__(), data['repositoryName'])
+        if data.get('productName') is not None:
+            add_Product(__getCurrentID__(), data['productName'])
+
+        return jsonify({
+            "status": "success",
+            "message": "Contact added successfully!",
+            "firstName": data['firstName'],
+            "lastName": data['lastName']
+        })
+
+    except ValueError as ve:
+        return jsonify({
+            "status": "error",
+            "message": f"Validation error: {str(ve)}"
+        }), 400
+
+    except Exception as e:
+        return jsonify({
+            "status": "error",
+            "message": f"Failed to add contact. Error: {str(e)}"
+        }), 400
+
 
 @app.route('/remove-entry', methods=['DELETE'])
 def remove_entry():
