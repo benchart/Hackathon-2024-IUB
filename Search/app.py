@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-from databaseAPI import addEntry, addRepoEntry, addProductEntry, removeEntry
+from databaseAPI import addEntry, addRepoEntry, addProductEntry, removeEntry, getByID, getPositionByID
 import json
 
 app = Flask(__name__)
@@ -14,7 +14,12 @@ def validate_fields(data, required_fields):
 def add_contact():
     try:
         #Please input your userID
-        
+        #if(getPositionByID(data['id'] != 'Admin')):
+        #    return jsonify({
+        #    "status": "error",
+        #    "message": "You do not have the authority to alter the database."
+        #}), 400
+
         data = request.get_json()
         required_fields = ['firstName', 'lastName', 'email', 'username', 'location', 'position', 'id']
         validate_fields(data, required_fields)
