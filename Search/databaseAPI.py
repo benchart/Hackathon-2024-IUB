@@ -39,14 +39,15 @@ def getIDSearch(query):
 #Returns a 2D array containing the information for every user found in the search
 def searchDB(query):
     idSet = getIDSearch(query)
-    userArray = [1][7]
+    userArray = []
     for id in idSet:
        with contactsDB.connect() as connection:
         result = str(connection.execute(text(f"SELECT * FROM :contactsTable WHERE :id = {id};"), {
                                             'contactsTable': entryFieldsList[0],
                                             'id': entryFieldsList[6]
                                         }))
-        userArray.append(result)
+        userArray.append(result.fetchall())
+    
     return userArray
 
 
