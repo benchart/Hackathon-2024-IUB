@@ -111,7 +111,7 @@ def searchDB(query):
         for row in rows:
             userArray.append(row)
     
-    return "\n".join([str(entry) for entry in userArray])
+    return userArray
 
 #returns the entry corresponding with the provided ID. Intended to be used to verify administrative access
 def getByID(id):
