@@ -122,25 +122,66 @@
             </form>
         </div>
     </div>
-    <form method="POST">
+
+    <form id="addContactForm">
         <h1 style="color:white;">Add a New Point of Contact</h1>
-        <p style="color:white;">First Name: <input type="text" name="first_name"></p><br>
-        <p style="color:white;">Last Name: <input type="text" name="last_name"></p><br>
-        <p style="color:white;">Email: <input type="email" name="email"></p><br>
-        <p style="color:white;">Chat Username: <input type="text" name="chat_username"></p><br>
-        <p style="color:white;">Location: <input type="text" name="location"></p><br>
-        <p style="color:white;">Title: <input type="text" name="title"></p><br>
-        <p style="color:white;">Product Name: <input type="text" name="product_name"></p><br>
-        <p style="color:white;">Repository Name: <input type="text" name="repository_name"></p><br>
+        <p style="color:white;">First Name: <input type="text" id="first_name" name="first_name" required></p><br>
+        <p style="color:white;">Last Name: <input type="text" id="last_name" name="last_name" required></p><br>
+        <p style="color:white;">Email: <input type="email" id="email" name="email" required></p><br>
+        <p style="color:white;">Chat Username: <input type="text" id="chat_username" name="chat_username" required></p><br>
+        <p style="color:white;">Location: <input type="text" id="location" name="location" required></p><br>
+        <p style="color:white;">Title: <input type="text" id="title" name="title" required></p><br>
+        <p style="color:white;">Product Name: <input type="text" id="product_name" name="product_name" required></p><br>
+        <p style="color:white;">Repository Name: <input type="text" id="repository_name" name="repository_name" required></p><br>
         <button type="submit">Add Contact</button>
     </form>
 
+    <div id="message" style="color:white; text-align:center; margin-top:20px;"></div>
 
-    <if success>
-        <p style="color:white;">Contact added successfully!</p>
-    </if>
-    <endif fail>
+    <script>
+        document.getElementById("addContactForm").addEventListener("submit", function(event) {
+            event.preventDefault();
 
-    </endif>
+
+            const formData = new FormData(event.target);
+            const contactData = {};
+            formData.forEach((value, key) => {
+                contactData[key] = value;
+            });
+
+            fetch('http://127.0.0.1:5000/add-contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    firstName: contactData.first_name,
+                    lastName: contactData.last_name,
+                    email: contactData.email,
+                    username: contactData.chat_username,
+                    location: contactData.location,
+                    position: contactData.title,
+                    productName: contactData.product_name,
+                    repositoryName: contactData.repository_name
+                })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Failed to add contact");
+                }
+                return response.json();
+            })
+            .then(data => {
+
+                document.getElementById("message").innerHTML = `<p>Contact added successfully!<br>Name: ${data.firstName} ${data.lastName}</p>`;
+                document.getElementById("message").style.color = "green";
+            })
+            .catch(error => {
+
+                document.getElementById("message").innerHTML = "<p>Error: Could not add contact. Please try again.</p>";
+                document.getElementById("message").style.color = "red";
+            });
+        });
+    </script>
 </body>
 </html>
