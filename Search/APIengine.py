@@ -15,5 +15,3 @@ def iniEngine():
     connection_string = f'mssql+pyodbc://{username}:{password}@{server}/{database}?driver={urllib.parse.quote_plus(driver)}&Encrypt=yes&TrustServerCertificate=no&Connection Timeout=30'
     contactsDB = create_engine(connection_string)
     return contactsDB
-
-contactsDB = iniEngine()

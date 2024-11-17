@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
-from APIengine import contactsDB
+from APIengine import iniEngine
+contactsDB = iniEngine()
 from sqlalchemy import create_engine , text
 from searchContacts import contactsVarList , searchContacts, contactTable
 from searchProducts import productsVarList , searchProducts, productsTable
