@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify , render_template
-from databaseAPI import addEntry, addRepoEntry, addProductEntry, removeEntry , searchDB
+from databaseAPI import addContactEntry, addRepoEntry, addProductEntry, removeEntry , searchDB
 import json
 
 app = Flask(__name__)
@@ -21,7 +21,7 @@ def add_contact():
         #}), 400
 
         data = request.get_json()
-        required_fields = ['firstName', 'lastName', 'email', 'username', 'location', 'position', 'id']
+        required_fields = ['firstName', 'lastName', 'email', 'username', 'location', 'position']
         validate_fields(data, required_fields)
 
         entryFieldsList = [
@@ -30,12 +30,11 @@ def add_contact():
             data['email'],
             data['username'],
             data['location'],
-            data['position'],
-            data['id']
+            data['position']
         ]
 
         #Add the contact to the database with the specificed data
-        addEntry(entryFieldsList)
+        addContactEntry(entryFieldsList)
 
         return jsonify({
             "status": "success",
