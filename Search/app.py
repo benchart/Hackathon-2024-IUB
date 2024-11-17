@@ -19,12 +19,12 @@ def index():
 def add_Repo():
     try:
         data = request.get_json()
-        required_fields = ['repo_name']
+        required_fields = ['repositoryName']
         validate_fields(data, required_fields)
 
         entryfieldsList = [
             __getCurrentID__(),
-            data['repo_name']
+            data['repositoryName']
         ]
 
         #Adds the corresponding repo entry
@@ -33,7 +33,7 @@ def add_Repo():
         return jsonify({
             "status": "success",
             "message": "Repository link added successfully!",
-            "Repository name": data['repo_name']
+            "Repository name": data['repositoryName']
         })
 
     except ValueError as ve:
@@ -53,12 +53,12 @@ def add_Repo():
 def add_Product():
     try:
         data = request.get_json()
-        required_fields = ['product_name']
+        required_fields = ['productName']
         validate_fields(data, required_fields)
 
         entryfieldsList = [
             __getCurrentID__(),
-            data['product_name']
+            data['productName']
         ]
 
         #Adds the product using the specified information
@@ -67,7 +67,7 @@ def add_Product():
         return jsonify({
             "status": "success",
             "message": "Product link added successfully!",
-            "Product name": data['product_name']
+            "Product name": data['productName']
         })
 
     except ValueError as ve:
