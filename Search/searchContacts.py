@@ -32,4 +32,3 @@ def searchContacts(query):
         user_ids = set(row for row in rows)
     return user_ids
 
-print(searchContacts("Jacob"))
