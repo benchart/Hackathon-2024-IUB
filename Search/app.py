@@ -106,9 +106,9 @@ def add_contact():
         #Add the contact to the database with the specificed data
         addContactEntry(entryFieldsList)
         if 'repositoryName' in data:
-            add_Repo(data['repositoryName'])
+            add_Repo(data)
         if 'productName' in data:
-            add_Product(data['productName'])
+            add_Product(data)
 
         return jsonify({
             "status": "success",
