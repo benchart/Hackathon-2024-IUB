@@ -23,7 +23,7 @@
             display: block;
             color: whitesmoke;
             text-align: center;
-            padding: 14px 224.4px;
+            padding: 1% 15%;
             text-decoration: none;
             font-size: 17px;
         }
@@ -41,7 +41,7 @@
         .topnav .search-container {
             float: left;
             width: 99%;
-            margin-left: 8px;
+            margin-left: 0.55%;
         }
 
         .topnav input[type="text"] {
@@ -50,13 +50,13 @@
             padding: 6px;
             font-size: 17px;
             border: none;
-            margin-top: 8px;
+            margin-top: 0.55%;
         }
 
         .topnav .search-container button {
             float: right;
-            padding: 6px 10px;
-            margin-top: 8px;
+            padding: 0.4% 0.6%;
+            margin-top: 0.55%;
             background: #ddd;
             font-size: 17px;
             border: none;
@@ -105,16 +105,57 @@
             justify-content: center;
             align-items: center;
             cursor: pointer;
-            margin: 100px;
+            margin-left: 12.8%;
+            margin-top: 10%;
+            float: left;
         }
+        .minus-button:hover {
+            background-color: #48b296;
+        }
+        .minus-button {
+            font-size: 50px;
+            width: 100px;
+            height: 100px;
+            background-color: #307c68;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            margin-left: 46%;
+            margin-top: 10%;
+        }
+        .question-button:hover {
+            background-color: #48b296;
+        }
+        .question-button {
+            font-size: 50px;
+            width: 100px;
+            height: 100px;
+            background-color: #307c68;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            margin-right: 14%;
+            margin-top: -6.2%;
+            float: right;
+        }
+        
+
     </style>
 </head>
 <body style="background-color:#256252;">
     <img src="Hiccup_Logo.jpg" alt="Hiccup Logo" width="600" height="150">
     <div class="topnav">
         <a href="home.html">Home</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
         <div class="search-container">
             <form action="search.html" method="GET">
                 <input type="text" placeholder="Search for a Point of Contact" name="query">
@@ -122,8 +163,17 @@
             </form>
         </div>
     </div>
-    <button class="plus-button" onclick="window.location.href='add.html'">
+    
+    <button class="plus-button" onclick="window.location.href='add.html'"  title="Add a Profile">
         +
-      </button>
+    </button>
+
+    <button class="minus-button" onclick="window.location.href='remove.html'" title="Remove a Profile">
+        -
+    </button>
+
+    <button class="question-button" onclick="window.location.href='how.html'" title="How to Use">
+        ?
+    </button>
 </body>
 </html>
