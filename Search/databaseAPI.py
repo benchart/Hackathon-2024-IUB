@@ -15,16 +15,41 @@ entryFieldsList2 = []
 #Add a new entry into the contacts table using a series of parameters
 def addEntry(entryFieldsList):
     with contactsDB.connect() as connection:
-        queryString = f"INSERT INTO {contactTable} VALUES (:firstName, :lastName, :email, :username, :location, :position, :id);"
-        connection.execute(text(queryString), {
-                                        'firstName': entryFieldsList[0],
-                                        'lastName': entryFieldsList[1], 
-                                        'email': entryFieldsList[2], 
-                                        'username': entryFieldsList[3], 
-                                        'location': entryFieldsList[4],  
-                                        'position': entryFieldsList[5], 
-                                        'id': entryFieldsList[6] 
-                                    })
+        queryString = f"INSERT INTO {contactTable} ({contactsVarList[1]}, {contactsVarList[2]}, {contactsVarList[3]}, {contactsVarList[4]}, {contactsVarList[5]}, {contactsVarList[6]}, {contactsVarList[7]}) VALUES (:firstName, :lastName, :email, :username, :location, :position, :id);"
+        print(queryString)
+        result = connection.execute(text(queryString), {
+                        'firstName': entryFieldsList[0],
+                        'lastName': entryFieldsList[1], 
+                        'email': entryFieldsList[2], 
+                        'username': entryFieldsList[3], 
+                        'location': entryFieldsList[4],  
+                        'position': entryFieldsList[5], 
+                        'id': entryFieldsList[6] 
+                        })
+        
+        connection.commit()
+
+
+#Remove an entry from the database with the matching paraeters
+def removeEntry(entryFieldsList):
+    with contactsDB.connect() as connection:
+        queryString = f"""DELETE FROM {contactTable} WHERE {contactsVarList[1]} = :firstName
+                         AND {contactsVarList[2]} = :lastName
+                         AND {contactsVarList[3]} = :email
+                         AND {contactsVarList[4]} = username
+                         AND {contactsVarList[5]} = location
+                         AND {contactsVarList[6]} = :id;"""
+        result = connection.execute(text(queryString), {
+                        'firstName': entryFieldsList[0],
+                        'lastName': entryFieldsList[1], 
+                        'email': entryFieldsList[2], 
+                        'username': entryFieldsList[3], 
+                        'location': entryFieldsList[4],  
+                        'position': entryFieldsList[5], 
+                        'id': entryFieldsList[6] 
+                        })
+        
+        connection.commit()
         
 
 #Store the userIDs returned by the search function and return as a combined set
@@ -49,10 +74,9 @@ def searchDB(query):
     
     return userArray
 
-#print(searchDB("Jacob"))
 
-# entryFieldsList2 = ['Ben', 'Hartman', 'benchartman@iu.edu', 'benchartman', 'Bloomington', 'Student', '4']
-# addEntry(entryFieldsList2)
-# print(searchDB('ben'))
-
-print(searchDB("Dummy product"))
+entryFieldsList2 = ['Ben', 'Hartman', 'benchartman@iu.edu', 'benchartman', 'Bloomington', 'Student', '4']
+addEntry(entryFieldsList2)
+print(searchDB('ben'))
+removeEntry(entryFieldsList2)
+print(searchDB('ben'))
