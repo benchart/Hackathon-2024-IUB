@@ -13,14 +13,10 @@ def validate_fields(data, required_fields):
 @app.route('/add-contact', methods=['POST'])
 def add_contact():
     try:
-        # Get the JSON data from the POST request
         data = request.get_json()
-
-        # Validate the fields
         required_fields = ['firstName', 'lastName', 'email', 'username', 'location', 'position', 'id']
         validate_fields(data, required_fields)
 
-        # Prepare the data to be passed to the addEntry function
         entryFieldsList = [
             data['firstName'],
             data['lastName'],
@@ -31,7 +27,7 @@ def add_contact():
             data['id']
         ]
 
-        # Call the addEntry function to add the contact to the database
+        #Add the contact to the database with the specificed data
         addEntry(entryFieldsList)
 
         return jsonify({
@@ -56,24 +52,22 @@ def add_contact():
 @app.route('/add-repo', methods=['POST'])
 def add_Repo():
     try:
-        # Get the JSON data from the POST request
         data = request.get_json()
-
-        # Validate the fields
         required_fields = ['user_id', 'repo_name']
         validate_fields(data, required_fields)
 
-        # Prepare the data for adding the repository
         entryfieldsList = [
             data['user_id'],
             hash(data['repo_name'].lower()),
             data['repo_name']
         ]
+
+        #Adds the corresponding repo entry
         addRepoEntry(entryfieldsList)
 
         return jsonify({
             "status": "success",
-            "message": "Repository added successfully!",
+            "message": "Repository link added successfully!",
             "Repository name": data['repo_name']
         })
 
@@ -89,27 +83,26 @@ def add_Repo():
             "message": f"Failed to add repository. Error: {str(e)}"
         }), 400
 
+
 @app.route('/add-product', methods=['POST'])
 def add_Product():
     try:
-        # Get the JSON data from the POST request
         data = request.get_json()
-
-        # Validate the fields
         required_fields = ['user_id', 'product_name']
         validate_fields(data, required_fields)
 
-        # Prepare the data for adding the product
         entryfieldsList = [
             data['user_id'],
             hash(data['product_name'].lower()),
             data['product_name']
         ]
+
+        #Adds the product using the specified information
         addProductEntry(entryfieldsList)
 
         return jsonify({
             "status": "success",
-            "message": "Product added successfully!",
+            "message": "Product link added successfully!",
             "Product name": data['product_name']
         })
 
@@ -134,10 +127,7 @@ def validate_id(data):
 @app.route('/remove-entry', methods=['DELETE'])
 def remove_entry():
     try:
-        # Get the JSON data from the DELETE request
         data = request.get_json()
-
-        # Validate the presence of 'id'
         validate_id(data)
 
         # Call the removeEntry function with the provided ID
@@ -145,7 +135,7 @@ def remove_entry():
 
         return jsonify({
             "status": "success",
-            "message": f"Entry with ID {data['id']} has been successfully removed."
+            "message": f"Contact with ID {data['id']} has been successfully removed."
         })
 
     except ValueError as ve:
