@@ -125,19 +125,19 @@
     <form method="POST">
         Product Name: <input type="text" name="product_name"><br>
         Repository Name: <input type="text" name="repository_name"><br>
-        <button type="submit">Search</button>
+        <button type="submit" style="color:white;">Search</button>
     </form>
     
     
     {% if result %}
-        <h2>Contact Found</h2>
-        <p>{{ result.first_name }} {{ result.last_name }}</p>
-        <p>Email: {{ result.email }}</p>
-        <p>Chat Username: {{ result.chat_username }}</p>
-        <p>Location: {{ result.location }}</p>
-        <p>Title: {{ result.title }}</p>
+        <h2 style="color:white;">Contact Found</h2>
+        <p style="color:white;">{{ result.first_name }} {{ result.last_name }}</p>
+        <p style="color:white;">Email: {{ result.email }}</p>
+        <p style="color:white;">Chat Username: {{ result.chat_username }}</p>
+        <p style="color:white;">Location: {{ result.location }}</p>
+        <p style="color:white;">Title: {{ result.title }}</p>
     {% elif error %}
-        <p>{{ error }}</p>
+        <p style="color:white;">{{ error }}</p>
     {% endif %}
 </body>
 </html>
