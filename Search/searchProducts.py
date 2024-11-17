@@ -9,11 +9,12 @@ productIDCol = 'product_id'
 #Store the variables in an Array to be passed to the API file
 productsVarList = [productsTable, productNameCol, userIDCol, productIDCol]
 
-searchString = f"""
+searchString = text(f"""
         SELECT {productsVarList[2]}
         FROM {productsVarList[0]}
-        WHERE {productsVarList[1]} LIKE :query OR {productIDCol} LIKE :query;
-"""
+        WHERE {productsVarList[1]} LIKE :query
+        OR {productIDCol} LIKE :query;
+""")
 
 def searchProducts(query):
     searchTerm = f"%{query}%"
