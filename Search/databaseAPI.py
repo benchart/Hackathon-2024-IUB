@@ -30,25 +30,25 @@ def addEntry(entryFieldsList):
 
 
 #Remove an entry from the database with the matching paraeters
-def removeEntry(entryFieldsList):
+def removeEntry(id):
     with contactsDB.connect() as connection:
 
         #Delete from Contacts
         queryString = f"DELETE FROM {contactTable} WHERE {contactsVarList[7]} = :id;"
         connection.execute(text(queryString), {
-                        'id': entryFieldsList[6] 
+                        'id': id 
                         })
         
         #Delete from Products
         queryString = f"DELETE FROM {productsTable} WHERE {contactsVarList[7]} = :id;"
         connection.execute(text(queryString), {
-                        'id': entryFieldsList[6] 
+                        'id': id 
                         })
         
         #Delete from Repo
         queryString = f"DELETE FROM {repoTable} WHERE {contactsVarList[7]} = :id;"
         connection.execute(text(queryString), {
-                        'id': entryFieldsList[6] 
+                        'id': id
                         })
         
         connection.commit()
@@ -80,5 +80,5 @@ def searchDB(query):
 entryFieldsList2 = ['Ben', 'Hartman', 'benchartman@iu.edu', 'benchartman', 'Bloomington', 'Student', '4']
 addEntry(entryFieldsList2)
 print(searchDB('ben'))
-removeEntry(entryFieldsList2)
+removeEntry(4)
 print(searchDB('ben'))
