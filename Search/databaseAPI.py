@@ -55,4 +55,4 @@ def searchDB(query):
 # addEntry(entryFieldsList2)
 # print(searchDB('ben'))
 
-print(searchDB("Dummy Repo"))
+print(searchDB("Dummy product"))

@@ -23,5 +23,3 @@ def searchRepo(query):
         rows = result.fetchall()
         user_ids_repo = {row[0] for row in rows}
     return user_ids_repo
-
-print(searchRepo("dummy repo"))
