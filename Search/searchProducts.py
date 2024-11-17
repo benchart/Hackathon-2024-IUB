@@ -21,5 +21,5 @@ def searchProducts(query):
     with contactsDB.connect() as connection:
         result = connection.execute(searchString, {'query': searchTerm})
         rows = result.fetchall()
-        user_ids = set(row for row in rows)
-    return user_ids
+        user_ids_product = set(row for row in rows)
+    return user_ids_product
