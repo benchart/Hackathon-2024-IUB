@@ -130,6 +130,5 @@ def getPositionByID(id):
         return result.fetchall()
 
 entryFields = ['Jacob Hunt', 'huntjac@iu.edu', 'huntjac', 'Bloomington', 'Student']
-print(addContactEntry(entryFields))
 print(searchDB("Jacob"))
 print(searchDB("Jacob Hunt"))
