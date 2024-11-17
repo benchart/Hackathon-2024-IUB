@@ -16,7 +16,7 @@ def index():
 
 
 @app.route('/add-repo', methods=['POST'])
-def add_Repo(data):
+def add_Repo():
     try:
         
         # Get the JSON data from the request
@@ -30,7 +30,7 @@ def add_Repo(data):
         return jsonify({
             "status": "success",
             "message": "Repository link added successfully!",
-            "Repository name": data['repoName']
+            "Repository name": data['repositoryName']
         })
 
     except ValueError as ve:
@@ -47,7 +47,7 @@ def add_Repo(data):
 
 
 @app.route('/add-product', methods=['POST'])
-def add_Product(data):
+def add_Product():
     try:
 
         # Get the JSON data from the request
@@ -108,9 +108,9 @@ def add_contact():
         addContactEntry(entryFieldsList)
 
         if 'repositoryName' in data:
-            add_Repo(data)
+            add_Repo()
         if 'productName' in data:
-            add_Product(data)
+            add_Product()
 
         return jsonify({
             "status": "success",
