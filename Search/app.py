@@ -21,11 +21,11 @@ def add_Repo(data):
         
         # Get the JSON data from the request
         data = request.get_json()
-        required_fields = ['repoName']  # repoName is required for this endpoint
+        required_fields = ['repositoryName']  # repoName is required for this endpoint
         validate_fields(data, required_fields)
         
         # Add the repository entry
-        addRepoEntry(__getCurrentID__(), data['repoName'])
+        addRepoEntry(__getCurrentID__(), data['repositoryName'])
 
         return jsonify({
             "status": "success",
@@ -54,6 +54,7 @@ def add_Product(data):
         data = request.get_json()
         required_fields = ['productName']  # productName is required for this endpoint
         validate_fields(data, required_fields)
+
         #Add the product entry
         addProductEntry(__getCurrentID__(), data['productName'])
 
@@ -105,6 +106,7 @@ def add_contact():
 
         #Add the contact to the database with the specificed data
         addContactEntry(entryFieldsList)
+
         if 'repositoryName' in data:
             add_Repo(data)
         if 'productName' in data:
