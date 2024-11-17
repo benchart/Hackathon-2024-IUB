@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 from APIengine import contactsDB    
 from sqlalchemy import create_engine , text
-from searchContacts import contactsVarList , searchContacts
+from searchContacts import contactsVarList , searchContacts, contactTable
 from searchProducts import productsVarList , searchProducts
 from searchRepo import repoVarList , searchRepo
 import urllib
@@ -10,20 +10,20 @@ app = Flask(__name__)
 query = ''
 
 
-entryFieldsList = []
+entryFieldsList2 = []
 
 #Add a new entry into the contacts table using a series of parameters
 def addEntry(entryFieldsList):
     with contactsDB.connect() as connection:
-        queryString = f"INSERT INTO {contactsVarList[0]} VALUES (:firstName, :lastName, :email, :username, :location, :position, :id);"
+        queryString = f"INSERT INTO {contactTable} VALUES (:firstName, :lastName, :email, :username, :location, :position, :id);"
         result = connection.execute(text(queryString), {
-                                        'firstName': entryFieldsList[0],
-                                        'lastName': entryFieldsList[1], 
-                                        'email': entryFieldsList[2], 
-                                        'username': entryFieldsList[3], 
-                                        'location': entryFieldsList[4],  
-                                        'position': entryFieldsList[5], 
-                                        'id': entryFieldsList[6] 
+                                        'firstName': entryFieldsList[1],
+                                        'lastName': entryFieldsList[2], 
+                                        'email': entryFieldsList[3], 
+                                        'username': entryFieldsList[4], 
+                                        'location': entryFieldsList[5],  
+                                        'position': entryFieldsList[6], 
+                                        'id': entryFieldsList[7] 
                                     })
         
 
@@ -33,16 +33,12 @@ def getIDSearch(query):
     productsResults = searchProducts(query)
     repoResults = searchRepo(query)
     combinedUserID = contactsResults | productsResults | repoResults
-    idlst = []
-    for id in combinedUserID:
-        for i in id:
-            idlst.append(i)
-    return idlst
+
+    return combinedUserID
 
 #Returns a 2D array containing the information for every user found in the search
 def searchDB(query):
     idSet = getIDSearch(query)
-    print(idSet)
     userArray = []
     for id in idSet:
        with contactsDB.connect() as connection:
@@ -53,9 +49,8 @@ def searchDB(query):
     
     return userArray
 
+#print(searchDB("Jacob"))
 
-# with engine.connect() as connection:
-#     result = connection.execute(text('SELECT user_id FROM Contacts'))
-#     print(result.fetchall())
-# print(getIDSearch("Jacob"))
-print(searchDB("Jacob"))
+entryFieldsList2 = ['Ben', 'Hartman', 'benchartman@iu.edu', 'benchartman', 'Bloomington', 'Student', '4']
+addEntry(entryFieldsList2)
+print(searchDB('ben'))
