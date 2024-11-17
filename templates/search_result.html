@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add New Contact</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
-        * {box-sizing: border-box;}
+        * {
+            box-sizing: border-box;
+        }
 
         body {
             margin: 0;
@@ -72,7 +75,10 @@
                 width: 100%;
                 float: none;
             }
-            .topnav a, .topnav input[type="text"], .topnav .search-container button {
+
+            .topnav a,
+            .topnav input[type="text"],
+            .topnav .search-container button {
                 float: none;
                 display: block;
                 text-align: left;
@@ -80,19 +86,22 @@
                 margin: 0;
                 padding: 14px;
             }
+
             .topnav input[type="text"] {
                 border: 1px solid #ccc;
             }
         }
+
         img {
             display: block;
             margin-left: auto;
             margin-right: auto;
-            }
+        }
 
         .plus-button:hover {
             background-color: #48b296;
         }
+
         .plus-button {
             font-size: 50px;
             width: 100px;
@@ -107,8 +116,38 @@
             cursor: pointer;
             margin: 100px;
         }
+
+        /* Additional styling for the form and results */
+        .results-container {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-card {
+            background-color: #f9f9f9;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-card p {
+            margin: 5px 0;
+        }
+
+        /* Message after submitting the form */
+        #message {
+            color: white;
+            text-align: center;
+            margin-top: 20px;
+        }
+
     </style>
 </head>
+
 <body style="background-color:#256252;">
     <img src="Hiccup_Logo.jpg" alt="Hiccup Logo" width="600" height="150">
     <div class="topnav">
@@ -116,15 +155,13 @@
         <a href="about.html">About</a>
         <a href="contact.html">Contact</a>
         <div class="search-container">
-            <form action="search_result.html" method="GET">
-                <input type="text" placeholder="Search for a Point of Contact" name="query">
+            <form action="search.html" method="GET" id="searchForm">
+                <input type="text" placeholder="Search for a Point of Contact" name="query" id="searchQuery" required>
                 <button type="submit"><i class="fa fa-search"></i></button>
             </form>
         </div>
     </div>
-
-    <form id="addContactForm">
-        <h1 style="color:white;">Add a New Point of Contact</h1>
+    <form id="addContactForm" style="text-align:center;">
         <p style="color:white;">First Name: <input type="text" id="first_name" name="first_name" required></p><br>
         <p style="color:white;">Last Name: <input type="text" id="last_name" name="last_name" required></p><br>
         <p style="color:white;">Email: <input type="email" id="email" name="email" required></p><br>
@@ -136,12 +173,15 @@
         <button type="submit">Add Contact</button>
     </form>
 
-    <div id="message" style="color:white; text-align:center; margin-top:20px;"></div>
+    <div id="message"></div>
+
+    <!-- Search Results Section -->
+    <div id="searchResults" class="results-container"></div>
 
     <script>
+        // Handle form submission for adding a contact
         document.getElementById("addContactForm").addEventListener("submit", function(event) {
             event.preventDefault();
-
 
             const formData = new FormData(event.target);
             const contactData = {};
@@ -165,21 +205,51 @@
                     repositoryName: contactData.repository_name
                 })
             })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error("Failed to add contact");
-                }
-                return response.json();
-            })
+            .then(response => response.json())
             .then(data => {
-
                 document.getElementById("message").innerHTML = `<p>Contact added successfully!<br>Name: ${data.firstName} ${data.lastName}</p>`;
                 document.getElementById("message").style.color = "green";
             })
             .catch(error => {
-
                 document.getElementById("message").innerHTML = "<p>Error: Could not add contact. Please try again.</p>";
                 document.getElementById("message").style.color = "red";
+            });
+        });
+
+        // Handle search functionality
+        document.getElementById("searchForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const query = document.getElementById("searchQuery").value;
+
+            fetch(`http://127.0.0.1:5000/search?query=${encodeURIComponent(query)}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                const resultsContainer = document.getElementById('searchResults');
+                resultsContainer.innerHTML = ''; // Clear previous results
+
+                if (data.status === "success" && data.results.length > 0) {
+                    data.results.forEach(contact => {
+                        const contactCard = document.createElement('div');
+                        contactCard.classList.add('contact-card');
+                        contactCard.innerHTML = `
+                            <p><strong>Name:</strong> ${contact.firstName} ${contact.lastName}</p>
+                            <p><strong>Email:</strong> ${contact.email}</p>
+                            <p><strong>Username:</strong> ${contact.username}</p>
+                            <p><strong>Location:</strong> ${contact.location}</p>
+                        `;
+                        resultsContainer.appendChild(contactCard);
+                    });
+                } else {
+                    resultsContainer.innerHTML = `<p>No contacts found for "${query}".</p>`;
+                }
+            })
+            .catch(error => {
+                alert('Error fetching search results. Please try again later.');
             });
         });
     </script>
