@@ -14,16 +14,16 @@ def validate_fields(data, required_fields):
 def index():
     return render_template('test.html')
 
-    
+
 @app.route('/add-repo', methods=['POST'])
-def add_Repo():
+def add_Repo(data):
     try:
         data = request.get_json()
-        required_fields = ['user_id', 'repo_name']
+        required_fields = ['repo_name']
         validate_fields(data, required_fields)
 
         entryfieldsList = [
-            data['user_id'],
+            __getCurrentID__(),
             data['repo_name']
         ]
 
@@ -50,14 +50,14 @@ def add_Repo():
 
 
 @app.route('/add-product', methods=['POST'])
-def add_Product():
+def add_Product(data):
     try:
         data = request.get_json()
-        required_fields = ['user_id', 'product_name']
+        required_fields = ['product_name']
         validate_fields(data, required_fields)
 
         entryfieldsList = [
-            data['user_id'],
+            __getCurrentID__(),
             data['product_name']
         ]
 
@@ -113,7 +113,7 @@ def add_contact():
         #Add the contact to the database with the specificed data
         addContactEntry(entryFieldsList)
         if data.get('repositoryName') is not None:
-            add_Repo(__getCurrentID__(), data['repositoryName'])
+            add_Repo(data)
         if data.get('productName') is not None:
             add_Product(__getCurrentID__(), data['productName'])
 
