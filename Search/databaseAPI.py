@@ -40,7 +40,7 @@ def addRepoEntry(user_id, repo_name):
     with contactsDB.connect() as connection:
         queryString = f"INSERT INTO {repoTable} ({repoVarList[3]}, {repoVarList[2]}, {repoVarList[1]}) VALUES (:repo_id, :user_id, :repo_name);"
         connection.execute(text(queryString), {
-                        'repo_id': abs(hash(repo_name.lower()))%(2**31-1),
+                        'repo_id': abs(hash(repo_name.lower())),
                         'user_id': user_id, 
                         'repo_name': repo_name, 
                         })
@@ -53,7 +53,7 @@ def addProductEntry(user_id, product_name):
     with contactsDB.connect() as connection:
         queryString = f"INSERT INTO {productsTable} ({productsVarList[3]}, {productsVarList[2]}, {productsVarList[1]}) VALUES (:product_id, :user_id, :product_name);"
         connection.execute(text(queryString), {
-                        'product_id': abs(hash(product_name.lower()))%(2**31-1),
+                        'product_id': abs(hash(product_name.lower())),
                         'user_id': user_id, 
                         'product_name': product_name, 
                         })
