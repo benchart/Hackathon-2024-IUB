@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-from APIengine import contactsDB    
+from APIengine import iniEngine  
 from sqlalchemy import create_engine , text
 from searchContacts import contactsVarList , searchContacts, contactTable
 from searchProducts import productsVarList , searchProducts, productsTable
@@ -7,6 +7,7 @@ from searchRepo import repoVarList , searchRepo, repoTable
 import urllib
 
 app = Flask(__name__)
+contactsDB = iniEngine()
 
 #Add a new entry into the contacts table using a series of parameters
 def addContactEntry(entryFieldsList):
@@ -56,19 +57,19 @@ def addProductEntry(user_id, product_id, product_name):
 def removeEntry(id):
     with contactsDB.connect() as connection:
 
-        #Delete from Contacts
+        #Delete matching entries from Contacts
         queryString = f"DELETE FROM {contactTable} WHERE {contactsVarList[7]} = :id;"
         connection.execute(text(queryString), {
                         'id': id 
                         })
         
-        #Delete from Products
+        #Delete matching entries from Products
         queryString = f"DELETE FROM {productsTable} WHERE {contactsVarList[7]} = :id;"
         connection.execute(text(queryString), {
                         'id': id 
                         })
         
-        #Delete from Repo
+        #Delete matching entries from Repo
         queryString = f"DELETE FROM {repoTable} WHERE {contactsVarList[7]} = :id;"
         connection.execute(text(queryString), {
                         'id': id
@@ -83,7 +84,7 @@ def getIDSearch(query):
     productsResults = searchProducts(query)
     repoResults = searchRepo(query)
     combinedUserID = contactsResults | productsResults | repoResults
-
+    print(combinedUserID)
     return combinedUserID
 
 #Returns a 2D array containing the information for every user found in the search
@@ -102,7 +103,3 @@ def searchDB(query):
 
 # entryFieldsList2 = ['Ben', 'Hartman', 'benchartman@iu.edu', 'benchartman', 'Bloomington', 'Student', '4']
 # addEntry(entryFieldsList2)
-# addProductEntry(4, 1001, "Hiccup")
-# print(searchDB('ben'))
-# removeEntry(4)
-# print(searchDB('ben'))
