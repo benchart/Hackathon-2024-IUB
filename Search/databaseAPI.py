@@ -42,8 +42,10 @@ def searchDB(query):
     userArray = []
     for id in idSet:
        with contactsDB.connect() as connection:
-        result = str(connection.execute(text(f"SELECT * FROM {contactsVarList[0]} WHERE {contactsVarList[7]} = {id};")))
-        userArray.append(result.fetchall())
+        result = str(connection.execute(text(f"SELECT * FROM {contactsVarList[0]} WHERE {contactsVarList[7]} = :id;"), {
+                                                'id': id
+                                            }))
+        userArray.extend(result.fetchall())
     
     return userArray
 
