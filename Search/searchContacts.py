@@ -31,4 +31,4 @@ def searchContacts(query):
         result = connection.execute(text(searchString), {'query': escaped_query})
     if(result == None):
         return "No results found"
-    return result.fetchAll()
+    return result.fetchall()
