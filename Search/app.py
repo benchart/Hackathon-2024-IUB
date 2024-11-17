@@ -18,14 +18,9 @@ def index():
 @app.route('/add-repo', methods=['POST'])
 def add_Repo(repoName):
     try:
-    
-        entryfieldsList = [
-            __getCurrentID__(),
-            repoName
-        ]
 
         #Adds the corresponding repo entry
-        addRepoEntry(entryfieldsList)
+        addRepoEntry(__getCurrentID__(), repoName)
 
         return jsonify({
             "status": "success",
@@ -50,13 +45,8 @@ def add_Repo(repoName):
 def add_Product(productName):
     try:
 
-        entryfieldsList = [
-            __getCurrentID__(),
-            productName
-        ]
-
         #Adds the product using the specified information
-        addProductEntry(entryfieldsList)
+        addProductEntry(__getCurrentID__(), productName)
 
         return jsonify({
             "status": "success",
@@ -107,9 +97,9 @@ def add_contact():
         #Add the contact to the database with the specificed data
         addContactEntry(entryFieldsList)
         if 'repositoryName' in data:
-            add_Repo(data.get('repositoryName'))
+            add_Repo(data['repositoryName'])
         if 'productName' in data:
-            add_Product(data.get('productName'))
+            add_Product(data['productName'])
 
         return jsonify({
             "status": "success",
