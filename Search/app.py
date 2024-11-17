@@ -85,13 +85,6 @@ def validate_id(data):
 @app.route('/add-contact', methods=['POST'])
 def add_contact():
     try:
-        #Please input your userID
-        #if(getPositionByID(data['id'] != 'Admin')):
-        #    return jsonify({
-        #    "status": "error",
-        #    "message": "You do not have the authority to alter the database."
-        #}), 400
-
         data = request.get_json()
         required_fields = ['firstName', 'lastName', 'email', 'username', 'location', 'position']
         validate_fields(data, required_fields)
