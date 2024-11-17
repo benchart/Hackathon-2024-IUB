@@ -25,7 +25,7 @@ def add_contact():
         validate_fields(data, required_fields)
 
         entryFieldsList = [
-            data['firstName'].join(data['lastName']),
+            data['firstName'] + ' ' + data['lastName'],
             data['email'],
             data['username'],
             data['location'],
@@ -67,7 +67,6 @@ def add_Repo():
 
         entryfieldsList = [
             data['user_id'],
-            hash(data['repo_name'].lower()),
             data['repo_name']
         ]
 
@@ -102,7 +101,6 @@ def add_Product():
 
         entryfieldsList = [
             data['user_id'],
-            hash(data['product_name'].lower()),
             data['product_name']
         ]
 

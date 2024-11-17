@@ -36,11 +36,11 @@ def addContactEntry(entryFieldsList):
 
 
 #Add a new entry into the repo table using a series of parameters
-def addRepoEntry(user_id, repo_id, repo_name):
+def addRepoEntry(user_id, repo_name):
     with contactsDB.connect() as connection:
         queryString = f"INSERT INTO {repoTable} ({repoVarList[3]}, {repoVarList[2]}, {repoVarList[1]}) VALUES (:repo_id, :user_id, :repo_name);"
         connection.execute(text(queryString), {
-                        'repo_id': repo_id,
+                        'repo_id': hash(repo_name.lower()),
                         'user_id': user_id, 
                         'repo_name': repo_name, 
                         })
@@ -49,11 +49,11 @@ def addRepoEntry(user_id, repo_id, repo_name):
 
 
 #Add a new entry into the products table using a series of parameters
-def addProductEntry(user_id, product_id, product_name):
+def addProductEntry(user_id, product_name):
     with contactsDB.connect() as connection:
         queryString = f"INSERT INTO {productsTable} ({productsVarList[3]}, {productsVarList[2]}, {productsVarList[1]}) VALUES (:product_id, :user_id, :product_name);"
         connection.execute(text(queryString), {
-                        'product_id': product_id,
+                        'product_id': hash(product_name.lower()),
                         'user_id': user_id, 
                         'product_name': product_name, 
                         })
