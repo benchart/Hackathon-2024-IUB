@@ -1,6 +1,3 @@
-from Search.databaseAPI import contactsDB
-from sqlalchemy import text
-
 repoTable = 'Repo'
 repoNameCol = 'repo_name'
 userIDCol = 'user_id'
@@ -17,11 +14,10 @@ searchString = f"""
         OR {repoIDCol} LIKE :query;
 """
 
-searchString = f'"SELECT "' + userIDCol + ' FROM ' + repoTable + ' WHERE ' 
-+ repoNameCol + ' LIKE ? OR '
-+ repoIDCol + ' LIKE ?;'
-
 def searchRepo(query):
+    from databaseAPI import contactsDB
+    from sqlalchemy import text
+
     query = f"%{query.lower()}%"
     escaped_query = query.replace('%', '\\%').replace('_', '\\_')
     with contactsDB.connect() as connection:

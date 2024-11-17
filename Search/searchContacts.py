@@ -1,5 +1,4 @@
-from Search.databaseAPI import contactsDB
-from sqlalchemy import text
+
 
 contactTable = 'Contacts'
 firstNameCol = 'first_name'
@@ -26,6 +25,9 @@ searchString = f"""
 """
 
 def searchContacts(query):
+    from databaseAPI import contactsDB
+    from sqlalchemy import text
+
     query = f"%{query.lower()}%"
     escaped_query = query.replace('%', '\\%').replace('_', '\\_')
     with contactsDB.connect() as connection:
