@@ -102,6 +102,11 @@ def getIDSearch(query):
 def searchDB(query):
     idSet = getIDSearch(query)
     userArray = []
+
+    #Protect against empty queries
+    if(query == ''):
+        return userArray
+    
     for id in idSet:
        with contactsDB.connect() as connection:
         result = connection.execute(text(f"SELECT * FROM {contactsVarList[0]} WHERE {contactsVarList[6]} = :id;"), {
@@ -130,3 +135,4 @@ def getPositionByID(id):
         return result.fetchall()
 
 #entryFields = ['Jacob Hunt', 'huntjac@iu.edu', 'huntjac', 'Bloomington', 'Student']
+print(searchDB(""))
