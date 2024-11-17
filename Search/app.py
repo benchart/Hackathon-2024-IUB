@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify , render_template
-from databaseAPI import addContactEntry, addRepoEntry, addProductEntry, removeEntry , searchDB
+from databaseAPI import addContactEntry, addRepoEntry, addProductEntry, removeEntry , searchDB, __getCurrentID__
 import json
 
 app = Flask(__name__)
@@ -35,9 +35,9 @@ def add_contact():
         #Add the contact to the database with the specificed data
         addContactEntry(entryFieldsList)
         if(data['repositoryName'] != None):
-            add_Repo()
+            add_Repo(__getCurrentID__(), data['repositoryName'])
         if(data['productName'] != None):
-            add_Product()
+            add_Product(__getCurrentID__(), data['productName'])
 
         return jsonify({
             "status": "success",
