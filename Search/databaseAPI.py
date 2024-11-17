@@ -130,4 +130,3 @@ def getPositionByID(id):
         return result.fetchall()
 
 #entryFields = ['Jacob Hunt', 'huntjac@iu.edu', 'huntjac', 'Bloomington', 'Student']
-print(addProductEntry(__getCurrentID__(), "Balls"))
