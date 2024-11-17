@@ -95,10 +95,12 @@ def searchDB(query):
        with contactsDB.connect() as connection:
         result = connection.execute(text(f"SELECT * FROM {contactsVarList[0]} WHERE {contactsVarList[7]} = :id;"), {
                                                 'id': id
-                                            })
-        userArray.extend(result.fetchall())
+                                            }) 
+        rows = result.fetchall()
+        for row in rows:
+            userArray.append(row)
     
-    return userArray
+    return "\n".join([str(entry) for entry in userArray])
 
 #returns the entry corresponding with the provided ID. Intended to be used to verify administrative access
 def getByID(id):
@@ -120,4 +122,3 @@ def getPositionByID(id):
 # addEntry(entryFieldsList2)
 
 print(searchDB("a"))
-print(getByID(1))
