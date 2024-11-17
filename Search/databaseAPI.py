@@ -9,6 +9,20 @@ import urllib
 app = Flask(__name__)
 
 
+#Determines the current user_id value using the number of rows in the contact table
+def getCurrentID():
+    with contactsDB.connect() as connection:
+        queryString = f"SELECT COUNT({contactsVarList[7]}) FROM {contactTable};"
+        result = connection.execute(text(queryString))
+        currentID = result.scalar()
+        return currentID
+
+#The current maximum user_id value
+currentID = getCurrentID()
+
+
+#Add functions, adds data to the database
+
 
 #Add a new entry into the contacts table using a series of parameters
 def addContactEntry(entryFieldsList):
@@ -21,10 +35,11 @@ def addContactEntry(entryFieldsList):
                         'username': entryFieldsList[3], 
                         'location': entryFieldsList[4],  
                         'position': entryFieldsList[5], 
-                        'id': entryFieldsList[6] 
+                        'id': currentID+1 
                         })
         
         connection.commit()
+
 
 #Add a new entry into the repo table using a series of parameters
 def addRepoEntry(user_id, repo_id, repo_name):
@@ -52,8 +67,6 @@ def addProductEntry(user_id, product_id, product_name):
         connection.commit()
 
 
-
-
 #Remove an entry from the database with the matching paraeters
 def removeEntry(id):
     with contactsDB.connect() as connection:
@@ -78,6 +91,10 @@ def removeEntry(id):
         
         connection.commit()
         
+
+
+#Search functions, returns information from the database
+
 
 #Store the userIDs returned by the search function and return as a combined set
 def getIDSearch(query):
