@@ -8,7 +8,7 @@ from searchRepo import repoVarList, searchRepo, repoTable
 #Determines the current user_id value using the number of rows in the contact table
 def __getCurrentID__():
     with contactsDB.connect() as connection:
-        queryString = f"SELECT COUNT({contactsVarList[7]}) FROM {contactTable};"
+        queryString = f"SELECT COUNT({contactsVarList[6]}) FROM {contactTable};"
         result = connection.execute(text(queryString))
         currentID = result.scalar()
         return currentID
@@ -129,5 +129,7 @@ def getPositionByID(id):
                                             })
         return result.fetchall()
 
+entryFields = ['Jacob Hunt', 'huntjac@iu.edu', 'huntjac', 'Bloomington', 'Student']
+print(addContactEntry(entryFields))
 print(searchDB("Jacob"))
 print(searchDB("Jacob Hunt"))

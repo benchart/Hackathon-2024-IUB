@@ -25,8 +25,7 @@ def add_contact():
         validate_fields(data, required_fields)
 
         entryFieldsList = [
-            data['firstName'],
-            data['lastName'],
+            data['firstName'].join(data['lastName']),
             data['email'],
             data['username'],
             data['location'],
