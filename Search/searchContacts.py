@@ -28,7 +28,7 @@ def searchContacts(query):
     searchTerm = f"%{query}%"
     with contactsDB.connect() as connection:
         result = connection.execute(searchString, {'query': searchTerm})
-        rows = result.fetchall()
+        rows = set(result.fetchall())
         user_ids = set(row for row in rows)
     return user_ids
 
