@@ -2,7 +2,6 @@ from flask import Flask, request, jsonify
 from sqlalchemy import create_engine, text
 import pyodbc
 import urllib
-contactsDB = ''
 
 def iniEngine():
     # Initialize the connection to the SQL server
