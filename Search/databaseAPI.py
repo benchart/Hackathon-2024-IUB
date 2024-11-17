@@ -129,6 +129,4 @@ def getPositionByID(id):
                                             })
         return result.fetchall()
 
-entryFields = ['Jacob Hunt', 'huntjac@iu.edu', 'huntjac', 'Bloomington', 'Student']
-print(searchDB("Jacob"))
-print(searchDB("Jacob Hunt"))
+#entryFields = ['Jacob Hunt', 'huntjac@iu.edu', 'huntjac', 'Bloomington', 'Student']

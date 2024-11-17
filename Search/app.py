@@ -16,7 +16,7 @@ def index():
 
 
 @app.route('/add-repo', methods=['POST'])
-def add_Repo(data):
+def add_Repo():
     try:
         data = request.get_json()
         required_fields = ['repo_name']
@@ -50,7 +50,7 @@ def add_Repo(data):
 
 
 @app.route('/add-product', methods=['POST'])
-def add_Product(data):
+def add_Product():
     try:
         data = request.get_json()
         required_fields = ['product_name']
@@ -113,9 +113,9 @@ def add_contact():
         #Add the contact to the database with the specificed data
         addContactEntry(entryFieldsList)
         if data.get('repositoryName') is not None:
-            add_Repo(data)
+            add_Repo()
         if data.get('productName') is not None:
-            add_Product(__getCurrentID__(), data['productName'])
+            add_Product()
 
         return jsonify({
             "status": "success",
