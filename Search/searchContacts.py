@@ -1,4 +1,5 @@
-from databaseAPI import contactsDB
+from APIengine import iniEngine
+contactsDB = iniEngine()
 from sqlalchemy import text
 
 contactTable = 'Contacts'
