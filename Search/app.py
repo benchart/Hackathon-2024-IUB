@@ -16,7 +16,7 @@ def index():
 
 
 @app.route('/add-repo', methods=['POST'])
-def add_Repo():
+def add_Repo(data):
     try:
         
         # Get the JSON data from the request
@@ -47,7 +47,7 @@ def add_Repo():
 
 
 @app.route('/add-product', methods=['POST'])
-def add_Product():
+def add_Product(data):
     try:
 
         # Get the JSON data from the request
