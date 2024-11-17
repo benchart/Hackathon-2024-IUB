@@ -23,14 +23,13 @@ def __getCurrentID__():
 #Add a new entry into the contacts table using a series of parameters
 def addContactEntry(entryFieldsList):
     with contactsDB.connect() as connection:
-        queryString = f"INSERT INTO {contactTable} ({contactsVarList[1]}, {contactsVarList[2]}, {contactsVarList[3]}, {contactsVarList[4]}, {contactsVarList[5]}, {contactsVarList[6]}, {contactsVarList[7]}) VALUES (:firstName, :lastName, :email, :username, :location, :position, :id);"
+        queryString = f"INSERT INTO {contactTable} ({contactsVarList[1]}, {contactsVarList[2]}, {contactsVarList[3]}, {contactsVarList[4]}, {contactsVarList[5]}, {contactsVarList[6]}) VALUES (:name, :email, :username, :location, :position, :id);"
         connection.execute(text(queryString), {
-                        'firstName': entryFieldsList[0],
-                        'lastName': entryFieldsList[1], 
-                        'email': entryFieldsList[2], 
-                        'username': entryFieldsList[3], 
-                        'location': entryFieldsList[4],  
-                        'position': entryFieldsList[5], 
+                        'name': entryFieldsList[0], 
+                        'email': entryFieldsList[1], 
+                        'username': entryFieldsList[2], 
+                        'location': entryFieldsList[3],  
+                        'position': entryFieldsList[4], 
                         'id': __getCurrentID__()+1 
                         })
         connection.commit()
@@ -67,19 +66,19 @@ def removeEntry(id):
     with contactsDB.connect() as connection:
 
         #Delete matching entries from Contacts
-        queryString = f"DELETE FROM {contactTable} WHERE {contactsVarList[7]} = :id;"
+        queryString = f"DELETE FROM {contactTable} WHERE {contactsVarList[6]} = :id;"
         connection.execute(text(queryString), {
                         'id': id 
                         })
         
         #Delete matching entries from Products
-        queryString = f"DELETE FROM {productsTable} WHERE {contactsVarList[7]} = :id;"
+        queryString = f"DELETE FROM {productsTable} WHERE {contactsVarList[6]} = :id;"
         connection.execute(text(queryString), {
                         'id': id 
                         })
         
         #Delete matching entries from Repo
-        queryString = f"DELETE FROM {repoTable} WHERE {contactsVarList[7]} = :id;"
+        queryString = f"DELETE FROM {repoTable} WHERE {contactsVarList[6]} = :id;"
         connection.execute(text(queryString), {
                         'id': id
                         })
@@ -105,7 +104,7 @@ def searchDB(query):
     userArray = []
     for id in idSet:
        with contactsDB.connect() as connection:
-        result = connection.execute(text(f"SELECT * FROM {contactsVarList[0]} WHERE {contactsVarList[7]} = :id;"), {
+        result = connection.execute(text(f"SELECT * FROM {contactsVarList[0]} WHERE {contactsVarList[6]} = :id;"), {
                                                 'id': id
                                             }) 
         rows = result.fetchall()
@@ -117,7 +116,7 @@ def searchDB(query):
 #returns the entry corresponding with the provided ID. Intended to be used to verify administrative access
 def getByID(id):
     with contactsDB.connect() as connection:
-        result = connection.execute(text(f"SELECT * FROM {contactsVarList[0]} WHERE {contactsVarList[7]} = :id;"), {
+        result = connection.execute(text(f"SELECT * FROM {contactsVarList[0]} WHERE {contactsVarList[6]} = :id;"), {
                                                 'id': id
                                             })
         return result.fetchall()
@@ -125,7 +124,10 @@ def getByID(id):
 #Returns the specified entry's position given an ID. Intended to be used to verify administrative access
 def getPositionByID(id):
     with contactsDB.connect() as connection:
-        result = connection.execute(text(f"SELECT {contactsVarList[6]} FROM {contactsVarList[0]} WHERE {contactsVarList[7]} = :id;"), {
+        result = connection.execute(text(f"SELECT {contactsVarList[5]} FROM {contactsVarList[0]} WHERE {contactsVarList[6]} = :id;"), {
                                                 'id': id
                                             })
         return result.fetchall()
+
+print(searchDB("Jacob"))
+print(searchDB("Jacob Hunt"))
