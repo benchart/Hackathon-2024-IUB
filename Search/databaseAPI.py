@@ -38,7 +38,8 @@ def getIDSearch(query):
 
 #Returns a 2D array containing the information for every user found in the search
 def searchDB(query):
-    idSet = set(getIDSearch(query))
+    idSet = getIDSearch(query)
+    print(idSet)
     userArray = []
     for id in idSet:
        with contactsDB.connect() as connection:
