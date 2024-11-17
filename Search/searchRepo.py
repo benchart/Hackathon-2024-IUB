@@ -9,18 +9,17 @@ repoIDCol = 'repo_id'
 #Store the variables in an Array to be passed to the API file
 repoVarList = [repoTable, repoNameCol, userIDCol, repoIDCol]
 
-searchString = f"""
-        SELECT {userIDCol}
-        FROM {repoTable}
-        WHERE {repoNameCol} LIKE :query 
-        OR {repoIDCol} LIKE :query;
-"""
+searchString = text(f"""
+        SELECT {repoVarList[2]}
+        FROM {repoVarList[0]}
+        WHERE {repoVarList[1]} LIKE :query 
+        OR {repoVarList[3]} LIKE :query;
+""")
 
 def searchRepo(query):
-    query = f"%{query.lower()}%"
-    escaped_query = query.replace('%', '\\%').replace('_', '\\_')
+    searchTerm = f"%{query}%"
     with contactsDB.connect() as connection:
-        result = connection.execute(text(searchString), {'query': escaped_query})
-    if(result == None):
-        return "No results found"
-    return result.fetchall()
+        result = connection.execute(searchString, {'query': searchTerm})
+        rows = result.fetchall()
+        user_ids = set(row for row in rows)
+    return user_ids
