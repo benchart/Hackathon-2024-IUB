@@ -148,13 +148,12 @@
                     resultItem.classList.add('search-result-item');
                     
                     resultItem.innerHTML = `
-                        <h4>${user.firstName} ${user.lastName}</h4>
-                        <p>Email: ${user.email}</p>
-                        <p>Username: ${user.username}</p>
-                        <p>Location: ${user.location}</p>
-                        <p>Position: ${user.position}</p>
-                        <p>Repository: ${user.repositoryName || 'N/A'}</p>
-                        <p>Product: ${user.productName || 'N/A'}</p>
+                        <h4>${user[0]}</h4> <!-- Name (from user[0]) -->
+                        <p>Email: ${user[1]}</p> <!-- Email (from user[1]) -->
+                        <p>Username: ${user[2]}</p> <!-- Username (from user[2]) -->
+                        <p>Location: ${user[3]}</p> <!-- Location (from user[3]) -->
+                        <p>Position: ${user[4]}</p> <!-- Position (from user[4]) -->
+                        <p>Repository: ${user[5] || 'N/A'}</p> <!-- ID (from user[5]) -->
                     `;
                     resultsDiv.appendChild(resultItem);
                 });
