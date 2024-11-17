@@ -178,7 +178,7 @@ def search():
                 "location": user[3],
                 "position": user[4]
             }
-        users.append(user_dict)
+            users.append(user_dict)
 
         # Return the user data as a JSON response
         return jsonify({
