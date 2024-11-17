@@ -1,3 +1,6 @@
+from APIengine import contactsDB
+from sqlalchemy import text
+
 productsTable = 'Products'
 productNameCol = 'product_name'
 userIDCol = 'user_id'
@@ -14,11 +17,10 @@ searchString = f"""
 """
 
 def searchProducts(query):
-    from databaseAPI import contactsDB
-    from sqlalchemy import text
-
     query = f"%{query.lower()}%"
     escaped_query = query.replace('%', '\\%').replace('_', '\\_')
     with contactsDB.connect() as connection:
         result = connection.execute(text(searchString), {'query': escaped_query})
+    if(result == None):
+        return "No results found"
     return result.fetchAll()
