@@ -1,11 +1,8 @@
-from flask import Flask
 from APIengine import contactsDB
 from sqlalchemy import text
 from searchContacts import contactsVarList, searchContacts, contactTable
 from searchProducts import productsVarList, searchProducts, productsTable
 from searchRepo import repoVarList, searchRepo, repoTable
-
-app = Flask(__name__)
 
 
 #Determines the current user_id value using the number of rows in the contact table
