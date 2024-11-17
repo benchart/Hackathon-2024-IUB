@@ -34,6 +34,23 @@
         .result {
             margin-top: 20px;
         }
+        /* Styling for search results */
+        .search-result-item {
+            background-color: #fff;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .search-result-item h4 {
+            margin: 0;
+            font-size: 1.2em;
+        }
+        .search-result-item p {
+            margin: 5px 0;
+            font-size: 1em;
+            color: #555;
+        }
     </style>
 </head>
 <body>
@@ -54,7 +71,6 @@
             <button type="submit">Add Contact</button>
         </form>
     </div>
-
 
     <!-- Search Form -->
     <div class="form-container">
@@ -105,56 +121,6 @@
             });
         });
 
-        // Function to handle form submission for adding a repository
-        document.getElementById('add-repo-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-
-            const data = {
-                user_id: document.getElementById('user_id').value,
-                repo_name: document.getElementById('repo_name').value
-            };
-
-            fetch('/add-repo', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            })
-            .then(response => response.json())
-            .then(data => {
-                alert(data.message);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-        });
-
-        // Function to handle form submission for adding a product
-        document.getElementById('add-product-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-
-            const data = {
-                user_id: document.getElementById('product_user_id').value,
-                product_name: document.getElementById('product_name').value
-            };
-
-            fetch('/add-product', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            })
-            .then(response => response.json())
-            .then(data => {
-                alert(data.message);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-        });
-
         // Function to handle search functionality
         document.getElementById('search-btn').addEventListener('click', function() {
             const query = document.getElementById('search-query').value;
@@ -164,13 +130,38 @@
                 return;
             }
 
+            // Send the search query to the server
             fetch(`/search?query=${encodeURIComponent(query)}`)
-            .then(response => response.text())
-            .then(html => {
-                document.getElementById('search-results').innerHTML = html;
+            .then(response => response.json())  // Expecting JSON response
+            .then(data => {
+                const resultsDiv = document.getElementById('search-results');
+                resultsDiv.innerHTML = '';  // Clear previous results
+
+                if (data.status === 'error' || !data.users || data.users.length === 0) {
+                    resultsDiv.innerHTML = '<p>No results found.</p>';
+                    return;
+                }
+
+                // Loop through the search results and display them
+                data.users.forEach(user => {
+                    const resultItem = document.createElement('div');
+                    resultItem.classList.add('search-result-item');
+                    
+                    resultItem.innerHTML = `
+                        <h4>${user.firstName} ${user.lastName}</h4>
+                        <p>Email: ${user.email}</p>
+                        <p>Username: ${user.username}</p>
+                        <p>Location: ${user.location}</p>
+                        <p>Position: ${user.position}</p>
+                        <p>Repository: ${user.repositoryName || 'N/A'}</p>
+                        <p>Product: ${user.productName || 'N/A'}</p>
+                    `;
+                    resultsDiv.appendChild(resultItem);
+                });
             })
             .catch(error => {
                 console.error('Error:', error);
+                document.getElementById('search-results').innerHTML = '<p>Error fetching search results. Please try again.</p>';
             });
         });
 

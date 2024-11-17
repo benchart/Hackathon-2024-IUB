@@ -166,11 +166,21 @@ def search():
         if not query:
             raise ValueError("Missing query parameter")
 
-        # Call the searchDB function to get user data
+        # Call the searchDB function to get user data based on the query
         userArray = searchDB(query)
 
-        # Render the HTML template and pass the userArray to it
-        return render_template('search_results.html', users=userArray)
+        # Check if userArray has data
+        if not userArray:
+            return jsonify({
+                "status": "error",
+                "message": "No results found for the search query."
+            }), 404
+
+        # Return the user data as a JSON response
+        return jsonify({
+            "status": "success",
+            "users": userArray
+        })
 
     except ValueError as ve:
         return jsonify({
@@ -183,6 +193,6 @@ def search():
             "status": "error",
             "message": f"Failed to fetch search results. Error: {str(e)}"
         }), 500
-
+        
 if __name__ == "__main__":
     app.run(debug=True)
