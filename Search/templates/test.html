@@ -148,15 +148,16 @@
                     resultItem.classList.add('search-result-item');
                     
                     resultItem.innerHTML = `
-                        <h4>${user[0]}</h4> <!-- Name (from user[0]) -->
-                        <p>Email: ${user[1]}</p> <!-- Email (from user[1]) -->
-                        <p>Username: ${user[2]}</p> <!-- Username (from user[2]) -->
-                        <p>Location: ${user[3]}</p> <!-- Location (from user[3]) -->
-                        <p>Position: ${user[4]}</p> <!-- Position (from user[4]) -->
+                        <h4>${user.name}</h4> <!-- Name (from user[0]) -->
+                        <p>Email: ${user.email}</p> <!-- Email (from user[1]) -->
+                        <p>Username: ${user.username}</p> <!-- Username (from user[2]) -->
+                        <p>Location: ${user.location}</p> <!-- Location (from user[3]) -->
+                        <p>Position: ${user.position}</p> <!-- Position (from user[4]) -->
                     `;
                     resultsDiv.appendChild(resultItem);
                 });
             })
+            
             .catch(error => {
                 console.error('Error:', error);
                 document.getElementById('search-results').innerHTML = '<p>Error fetching search results. Please try again.</p>';
