@@ -13,6 +13,8 @@ def validate_fields(data, required_fields):
 @app.route('/add-contact', methods=['POST'])
 def add_contact():
     try:
+        #Please input your userID
+        
         data = request.get_json()
         required_fields = ['firstName', 'lastName', 'email', 'username', 'location', 'position', 'id']
         validate_fields(data, required_fields)
