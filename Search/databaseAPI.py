@@ -9,7 +9,7 @@ import urllib
 app = Flask(__name__)
 
 #Add a new entry into the contacts table using a series of parameters
-def addEntry(entryFieldsList):
+def addContactEntry(entryFieldsList):
     with contactsDB.connect() as connection:
         queryString = f"INSERT INTO {contactTable} ({contactsVarList[1]}, {contactsVarList[2]}, {contactsVarList[3]}, {contactsVarList[4]}, {contactsVarList[5]}, {contactsVarList[6]}, {contactsVarList[7]}) VALUES (:firstName, :lastName, :email, :username, :location, :position, :id);"
         connection.execute(text(queryString), {
