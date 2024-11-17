@@ -10,6 +10,11 @@ def validate_fields(data, required_fields):
     if missing:
         raise ValueError(f"Missing required fields: {', '.join(missing)}")
     
+@app.route('/')
+def index():
+    return render_template('test.html')
+
+    
 @app.route('/add-repo', methods=['POST'])
 def add_Repo():
     try:
