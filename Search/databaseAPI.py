@@ -33,8 +33,11 @@ def getIDSearch(query):
     productsResults = searchProducts(query)
     repoResults = searchRepo(query)
     combinedUserID = contactsResults | productsResults | repoResults
-
-    return combinedUserID
+    idlst = []
+    for id in combinedUserID:
+        for i in id:
+            idlst.append(i)
+    return idlst
 
 #Returns a 2D array containing the information for every user found in the search
 def searchDB(query):
@@ -43,9 +46,9 @@ def searchDB(query):
     userArray = []
     for id in idSet:
        with contactsDB.connect() as connection:
-        result = str(connection.execute(text(f"SELECT * FROM {contactsVarList[0]} WHERE {contactsVarList[7]} = :id;"), {
+        result = connection.execute(text(f"SELECT * FROM {contactsVarList[0]} WHERE {contactsVarList[7]} = :id;"), {
                                                 'id': id
-                                            }))
+                                            })
         userArray.extend(result.fetchall())
     
     return userArray
