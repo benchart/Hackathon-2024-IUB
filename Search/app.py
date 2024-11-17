@@ -176,10 +176,21 @@ def search():
                 "message": "No results found for the search query."
             }), 404
 
+        users = []
+        for user in userArray:
+            user_dict = {
+                "name": user[0],
+                "email": user[1],
+                "username": user[2],
+                "location": user[3],
+                "position": user[4]
+            }
+        users.append(user_dict)
+
         # Return the user data as a JSON response
         return jsonify({
             "status": "success",
-            "users": userArray
+            "users": users
         })
 
     except ValueError as ve:
