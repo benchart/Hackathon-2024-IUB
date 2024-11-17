@@ -9,7 +9,6 @@ usernameCol= 'username'
 locationCol = 'location'
 positionCol = 'position'
 userIDCol = 'user_id'
-query = ''
 
 #Store the variables in an Array to be passed to the API file
 contactsVarList = [contactTable, firstNameCol, lastNameCol, emailCol, usernameCol, locationCol, positionCol, userIDCol]

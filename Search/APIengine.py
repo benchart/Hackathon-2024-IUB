@@ -1,6 +1,8 @@
 from flask import Flask, request, jsonify
 from sqlalchemy import create_engine , text
 import urllib
+
+
 # Initialize the connection to the SQL server
 username = 'huntjac'
 password = 'Nn39khnr!'

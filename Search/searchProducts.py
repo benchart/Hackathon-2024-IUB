@@ -5,7 +5,6 @@ productsTable = 'Products'
 productNameCol = 'product_name'
 userIDCol = 'user_id'
 productIDCol = 'product_id'
-query = ''
 
 #Store the variables in an Array to be passed to the API file
 productsVarList = [productsTable, productNameCol, userIDCol, productIDCol]

@@ -5,7 +5,6 @@ repoTable = 'Repo'
 repoNameCol = 'repo_name'
 userIDCol = 'user_id'
 repoIDCol = 'repo_id'
-query = ''
 
 #Store the variables in an Array to be passed to the API file
 repoVarList = [repoTable, repoNameCol, userIDCol, repoIDCol]
