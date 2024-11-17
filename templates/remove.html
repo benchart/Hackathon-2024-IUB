@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add New Contact</title>
+    <title>Remove Contact</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         * {box-sizing: border-box;}
@@ -23,7 +23,7 @@
             display: block;
             color: whitesmoke;
             text-align: center;
-            padding: 1% 15%;
+            padding: 1% 14.99%;
             text-decoration: none;
             font-size: 17px;
         }
@@ -110,12 +110,11 @@
     </style>
 </head>
 <body style="background-color:#256252;">
-    <h1>Add a New Point of Contact</h1>
     <img src="Hiccup_Logo.jpg" alt="Hiccup Logo" width="600" height="150">
     <div class="topnav">
         <a href="home.html">Home</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
         <div class="search-container">
             <form action="search.html" method="GET">
                 <input type="text" placeholder="Search for a Point of Contact" name="query">
@@ -124,14 +123,15 @@
         </div>
     </div>
     <form method="POST">
-        First Name: <input type="text" name="first_name"><br>
-        Last Name: <input type="text" name="last_name"><br>
-        Email: <input type="email" name="email"><br>
-        Chat Username: <input type="text" name="chat_username"><br>
-        Location: <input type="text" name="location"><br>
-        Title: <input type="text" name="title"><br>
-        Product Name: <input type="text" name="product_name"><br>
-        Repository Name: <input type="text" name="repository_name"><br>
+        <h1 style="color:white;">Remove a Point of Contact</h1>
+        <p style="color:white;">First Name: <input type="text" name="first_name"></p><br>
+        <p style="color:white;">Last Name: <input type="text" name="last_name"></p><br>
+        <p style="color:white;">Email: <input type="email" name="email"></p><br>
+        <p style="color:white;">Chat Username: <input type="text" name="chat_username"></p><br>
+        <p style="color:white;">Location: <input type="text" name="location"></p><br>
+        <p style="color:white;">Title: <input type="text" name="title"></p><br>
+        <p style="color:white;">Product Name: <input type="text" name="product_name"></p><br>
+        <p style="color:white;">Repository Name: <input type="text" name="repository_name"></p><br>
         <button type="submit">Add Contact</button>
     </form>
 
