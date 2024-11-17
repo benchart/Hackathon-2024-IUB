@@ -100,8 +100,16 @@ def searchDB(query):
     
     return userArray
 
+#returns the entry corresponding with the provided ID. intended to be used to verify administrative access
+def getByID(id):
+    with contactsDB.connect() as connection:
+        result = connection.execute(text(f"SELECT * FROM {contactsVarList[0]} WHERE {contactsVarList[7]} = :id;"), {
+                                                'id': id
+                                            })
+        return result.fetchall()
 
 # entryFieldsList2 = ['Ben', 'Hartman', 'benchartman@iu.edu', 'benchartman', 'Bloomington', 'Student', '4']
 # addEntry(entryFieldsList2)
 
 print(searchDB("a"))
+print(getByID(1))
