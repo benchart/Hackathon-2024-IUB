@@ -1,5 +1,5 @@
-from flask import Flask, request, jsonify
-from databaseAPI import addEntry, addRepoEntry, addProductEntry, removeEntry, getByID, getPositionByID
+from flask import Flask, request, jsonify , render_template
+from databaseAPI import addEntry, addRepoEntry, addProductEntry, removeEntry , searchDB
 import json
 
 app = Flask(__name__)
@@ -157,7 +157,31 @@ def remove_entry():
             "message": f"Failed to remove entry. Error: {str(e)}"
         }), 500
 
+@app.route('/search', methods=['GET'])
+def search():
+    try:
+        # Get the query parameter from the request
+        query = request.args.get('query')
+        if not query:
+            raise ValueError("Missing query parameter")
+
+        # Call the searchDB function to get user data
+        userArray = searchDB(query)
+
+        # Render the HTML template and pass the userArray to it
+        return render_template('search_results.html', users=userArray)
+
+    except ValueError as ve:
+        return jsonify({
+            "status": "error",
+            "message": f"Validation error: {str(ve)}"
+        }), 400
+
+    except Exception as e:
+        return jsonify({
+            "status": "error",
+            "message": f"Failed to fetch search results. Error: {str(e)}"
+        }), 500
 
 if __name__ == "__main__":
     app.run(debug=True)
-
