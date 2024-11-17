@@ -17,8 +17,7 @@ def getCurrentID():
         currentID = result.scalar()
         return currentID
 
-#The current maximum user_id value
-currentID = getCurrentID()
+
 
 
 #Add functions, adds data to the database
@@ -35,9 +34,8 @@ def addContactEntry(entryFieldsList):
                         'username': entryFieldsList[3], 
                         'location': entryFieldsList[4],  
                         'position': entryFieldsList[5], 
-                        'id': currentID+1 
+                        'id': getCurrentID()+1 
                         })
-        
         connection.commit()
 
 
@@ -134,5 +132,3 @@ def getPositionByID(id):
                                                 'id': id
                                             })
         return result.fetchall()
-
-print(searchDB("a"))
