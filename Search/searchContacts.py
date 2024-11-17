@@ -1,4 +1,4 @@
-from APIengine import iniEngine
+from APIengine import contactsDB
 from sqlalchemy import text
 
 contactTable = 'Contacts'
@@ -9,7 +9,6 @@ usernameCol= 'username'
 locationCol = 'location'
 positionCol = 'position'
 userIDCol = 'user_id'
-contactsDB = iniEngine()
 
 #Store the variables in an Array to be passed to the API file
 contactsVarList = [contactTable, firstNameCol, lastNameCol, emailCol, usernameCol, locationCol, positionCol, userIDCol]

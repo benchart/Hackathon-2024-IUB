@@ -1,11 +1,10 @@
-from APIengine import iniEngine
+from APIengine import contactsDB
 from sqlalchemy import text
 
 productsTable = 'Products'
 productNameCol = 'product_name'
 userIDCol = 'user_id'
 productIDCol = 'product_id'
-contactsDB = iniEngine()
 
 #Store the variables in an Array to be passed to the API file
 productsVarList = [productsTable, productNameCol, userIDCol, productIDCol]

@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-from APIengine import iniEngine  
+from APIengine import contactsDB  
 from sqlalchemy import create_engine , text
 from searchContacts import contactsVarList , searchContacts, contactTable
 from searchProducts import productsVarList , searchProducts, productsTable
@@ -7,7 +7,6 @@ from searchRepo import repoVarList , searchRepo, repoTable
 import urllib
 
 app = Flask(__name__)
-contactsDB = iniEngine()
 
 #Add a new entry into the contacts table using a series of parameters
 def addContactEntry(entryFieldsList):
@@ -84,7 +83,6 @@ def getIDSearch(query):
     productsResults = searchProducts(query)
     repoResults = searchRepo(query)
     combinedUserID = contactsResults | productsResults | repoResults
-    print(combinedUserID)
     return combinedUserID
 
 #Returns a 2D array containing the information for every user found in the search
@@ -103,3 +101,4 @@ def searchDB(query):
 
 # entryFieldsList2 = ['Ben', 'Hartman', 'benchartman@iu.edu', 'benchartman', 'Bloomington', 'Student', '4']
 # addEntry(entryFieldsList2)
+searchDB("Jacob")
