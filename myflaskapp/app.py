@@ -19,8 +19,7 @@ def add_contact():
             data['username'],
             data['location'],
             data['position'],
-            data['productName'],
-            data['repositoryName']
+            data['user_id'],
         ]
 
         # Call the addEntry function to add the contact to the database
