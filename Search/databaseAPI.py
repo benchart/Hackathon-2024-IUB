@@ -10,7 +10,7 @@ app = Flask(__name__)
 
 
 #Determines the current user_id value using the number of rows in the contact table
-def getCurrentID():
+def _getCurrentID_():
     with contactsDB.connect() as connection:
         queryString = f"SELECT COUNT({contactsVarList[7]}) FROM {contactTable};"
         result = connection.execute(text(queryString))
@@ -34,7 +34,7 @@ def addContactEntry(entryFieldsList):
                         'username': entryFieldsList[3], 
                         'location': entryFieldsList[4],  
                         'position': entryFieldsList[5], 
-                        'id': getCurrentID()+1 
+                        'id': _getCurrentID_()+1 
                         })
         connection.commit()
 
