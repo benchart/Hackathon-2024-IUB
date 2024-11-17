@@ -3,13 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <title>Flask Contact Manager</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
+            * {box-sizing: border-box;}
+
+            body {
+                margin: 0;
+                font-family: Arial, Helvetica, sans-serif;
+            }
+
+            .topnav {
+                overflow: hidden;
+                background-color: #307c68;
+            }
+
+            .topnav a {
+                float: left;
+                display: block;
+                color: whitesmoke;
+                text-align: center;
+                padding: 1% 14.92%;
+                text-decoration: none;
+                font-size: 17px;
+            }
+
+            .topnav a:hover {
+                background-color: #48b296;
+                color: white;
+            }
+
+            .topnav a.active {
+                background-color: #48b296;
+                color: white;
+            }
+            img {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                }
+
+
         body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            padding: 10px;
-            background-color: #f4f4f4;
+                font-family: Arial, sans-serif;
+                margin: 20px;
+                padding: 10px;
+                background-color: #f4f4f4;
         }
         h1 {
             text-align: center;
@@ -34,27 +74,19 @@
         .result {
             margin-top: 20px;
         }
-        /* Styling for search results */
-        .search-result-item {
-            background-color: #fff;
-            padding: 10px;
-            margin: 5px 0;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-        .search-result-item h4 {
-            margin: 0;
-            font-size: 1.2em;
-        }
-        .search-result-item p {
-            margin: 5px 0;
-            font-size: 1em;
-            color: #555;
-        }
+
     </style>
+
 </head>
-<body>
-    <h1>Flask Contact Manager</h1>
+<body style="background-color:#256252;">
+    <img src="Hiccup_Logo.jpg" alt="Hiccup Logo" width="600" height="150">
+    <div class="topnav">
+        <a href="home.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+    </div>
+    
+    <h1 style="color:white;">Flask Contact Manager</h1>
 
     <!-- Add Contact Form -->
     <div class="form-container">
@@ -72,6 +104,26 @@
         </form>
     </div>
 
+    <!-- Add Repository Form -->
+    <div class="form-container">
+        <h2>Add Repository</h2>
+        <form id="add-repo-form">
+            <input type="number" id="user_id" name="user_id" placeholder="User ID" required>
+            <input type="text" id="repo_name" name="repo_name" placeholder="Repository Name" required>
+            <button type="submit">Add Repository</button>
+        </form>
+    </div>
+
+    <!-- Add Product Form -->
+    <div class="form-container">
+        <h2>Add Product</h2>
+        <form id="add-product-form">
+            <input type="number" id="product_user_id" name="user_id" placeholder="User ID" required>
+            <input type="text" id="product_name" name="product_name" placeholder="Product Name" required>
+            <button type="submit">Add Product</button>
+        </form>
+    </div>
+
     <!-- Search Form -->
     <div class="form-container">
         <h2>Search Contacts</h2>
@@ -81,14 +133,14 @@
 
     <!-- Search Results -->
     <div class="result" id="search-results"></div>
-
+    /*
     <!-- Remove Contact Form -->
     <div class="form-container">
         <h2>Remove Contact</h2>
         <input type="number" id="remove-id" placeholder="Enter Contact ID to Remove" required>
         <button id="remove-btn">Remove Contact</button>
     </div>
-
+    */
     <script>
         // Function to handle form submission for adding a contact
         document.getElementById('add-contact-form').addEventListener('submit', function(event) {
@@ -121,6 +173,56 @@
             });
         });
 
+        // Function to handle form submission for adding a repository
+        document.getElementById('add-repo-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const data = {
+                user_id: document.getElementById('user_id').value,
+                repo_name: document.getElementById('repo_name').value
+            };
+
+            fetch('/add-repo', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+
+        // Function to handle form submission for adding a product
+        document.getElementById('add-product-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const data = {
+                user_id: document.getElementById('product_user_id').value,
+                product_name: document.getElementById('product_name').value
+            };
+
+            fetch('/add-product', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+
         // Function to handle search functionality
         document.getElementById('search-btn').addEventListener('click', function() {
             const query = document.getElementById('search-query').value;
@@ -130,37 +232,13 @@
                 return;
             }
 
-            // Send the search query to the server
             fetch(`/search?query=${encodeURIComponent(query)}`)
-            .then(response => response.json())  // Expecting JSON response
-            .then(data => {
-                const resultsDiv = document.getElementById('search-results');
-                resultsDiv.innerHTML = '';  // Clear previous results
-
-                if (data.status === 'error' || !data.users || data.users.length === 0) {
-                    resultsDiv.innerHTML = '<p>No results found.</p>';
-                    return;
-                }
-
-                // Loop through the search results and display them
-                data.users.forEach(user => {
-                    const resultItem = document.createElement('div');
-                    resultItem.classList.add('search-result-item');
-                    
-                    resultItem.innerHTML = `
-                        <h4>${user.name}</h4> <!-- Name (from user[0]) -->
-                        <p>Email: ${user.email}</p> <!-- Email (from user[1]) -->
-                        <p>Username: ${user.username}</p> <!-- Username (from user[2]) -->
-                        <p>Location: ${user.location}</p> <!-- Location (from user[3]) -->
-                        <p>Position: ${user.position}</p> <!-- Position (from user[4]) -->
-                    `;
-                    resultsDiv.appendChild(resultItem);
-                });
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('search-results').innerHTML = html;
             })
-            
             .catch(error => {
                 console.error('Error:', error);
-                document.getElementById('search-results').innerHTML = '<p>Error fetching search results. Please try again.</p>';
             });
         });
 

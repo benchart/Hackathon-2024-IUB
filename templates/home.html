@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>How to Use Hiccup</title>
+    <title>Home</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         * {box-sizing: border-box;}
@@ -23,7 +23,7 @@
             display: block;
             color: whitesmoke;
             text-align: center;
-            padding: 1% 14.99%;
+            padding: 1% 15%;
             text-decoration: none;
             font-size: 17px;
         }
@@ -105,8 +105,49 @@
             justify-content: center;
             align-items: center;
             cursor: pointer;
-            margin: 100px;
+            margin-left: 12.8%;
+            margin-top: 10%;
+            float: left;
         }
+        .minus-button:hover {
+            background-color: #48b296;
+        }
+        .minus-button {
+            font-size: 50px;
+            width: 100px;
+            height: 100px;
+            background-color: #307c68;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            margin-left: 46%;
+            margin-top: 10%;
+        }
+        .question-button:hover {
+            background-color: #48b296;
+        }
+        .question-button {
+            font-size: 50px;
+            width: 100px;
+            height: 100px;
+            background-color: #307c68;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            margin-right: 14%;
+            margin-top: -6.2%;
+            float: right;
+        }
+        
+
     </style>
 </head>
 <body style="background-color:#256252;">
@@ -122,6 +163,17 @@
             </form>
         </div>
     </div>
-    <p style="color:white;">Blah Blah Blah</p>
+    
+    <button class="plus-button" onclick="window.location.href='test.html'"  title="Add a Profile">
+        +
+    </button>
+
+    <button class="minus-button" onclick="window.location.href='remove.html'" title="Remove a Profile">
+        -
+    </button>
+
+    <button class="question-button" onclick="window.location.href='how.html'" title="How to Use">
+        ?
+    </button>
 </body>
 </html>
