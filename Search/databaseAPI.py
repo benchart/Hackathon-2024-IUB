@@ -7,10 +7,6 @@ from searchRepo import repoVarList , searchRepo, repoTable
 import urllib
 
 app = Flask(__name__)
-query = ''
-
-
-entryFieldsList2 = []
 
 #Add a new entry into the contacts table using a series of parameters
 def addEntry(entryFieldsList):
@@ -27,6 +23,33 @@ def addEntry(entryFieldsList):
                         })
         
         connection.commit()
+
+#Add a new entry into the repo table using a series of parameters
+def addRepoEntry(user_id, repo_id, repo_name):
+    with contactsDB.connect() as connection:
+        queryString = f"INSERT INTO {repoTable} ({repoVarList[3]}, {repoVarList[2]}, {repoVarList[1]}) VALUES (:repo_id, :user_id, :repo_name);"
+        connection.execute(text(queryString), {
+                        'repo_id': repo_id,
+                        'user_id': user_id, 
+                        'repo_name': repo_name, 
+                        })
+        
+        connection.commit()
+
+
+#Add a new entry into the products table using a series of parameters
+def addProductEntry(user_id, product_id, product_name):
+    with contactsDB.connect() as connection:
+        queryString = f"INSERT INTO {productsTable} ({productsVarList[3]}, {productsVarList[2]}, {productsVarList[1]}) VALUES (:product_id, :user_id, :product_name);"
+        connection.execute(text(queryString), {
+                        'product_id': product_id,
+                        'user_id': user_id, 
+                        'product_name': product_name, 
+                        })
+        
+        connection.commit()
+
+
 
 
 #Remove an entry from the database with the matching paraeters
@@ -77,8 +100,9 @@ def searchDB(query):
     return userArray
 
 
-entryFieldsList2 = ['Ben', 'Hartman', 'benchartman@iu.edu', 'benchartman', 'Bloomington', 'Student', '4']
-addEntry(entryFieldsList2)
-print(searchDB('ben'))
-removeEntry(4)
-print(searchDB('ben'))
+# entryFieldsList2 = ['Ben', 'Hartman', 'benchartman@iu.edu', 'benchartman', 'Bloomington', 'Student', '4']
+# addEntry(entryFieldsList2)
+# addProductEntry(4, 1001, "Hiccup")
+# print(searchDB('ben'))
+# removeEntry(4)
+# print(searchDB('ben'))
