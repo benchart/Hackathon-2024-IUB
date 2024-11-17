@@ -16,15 +16,12 @@ def index():
 
 
 @app.route('/add-repo', methods=['POST'])
-def add_Repo():
+def add_Repo(repoName):
     try:
-        data = request.get_json()
-        required_fields = ['repositoryName']
-        validate_fields(data, required_fields)
-
+    
         entryfieldsList = [
             __getCurrentID__(),
-            data['repositoryName']
+            repoName
         ]
 
         #Adds the corresponding repo entry
@@ -33,7 +30,7 @@ def add_Repo():
         return jsonify({
             "status": "success",
             "message": "Repository link added successfully!",
-            "Repository name": data['repositoryName']
+            "Repository name": repoName
         })
 
     except ValueError as ve:
@@ -50,15 +47,12 @@ def add_Repo():
 
 
 @app.route('/add-product', methods=['POST'])
-def add_Product():
+def add_Product(productName):
     try:
-        data = request.get_json()
-        required_fields = ['productName']
-        validate_fields(data, required_fields)
 
         entryfieldsList = [
             __getCurrentID__(),
-            data['productName']
+            productName
         ]
 
         #Adds the product using the specified information
@@ -67,7 +61,7 @@ def add_Product():
         return jsonify({
             "status": "success",
             "message": "Product link added successfully!",
-            "Product name": data['productName']
+            "Product name": productName
         })
 
     except ValueError as ve:
@@ -112,10 +106,10 @@ def add_contact():
 
         #Add the contact to the database with the specificed data
         addContactEntry(entryFieldsList)
-        if data.get('repositoryName') is not None:
-            add_Repo()
-        if data.get('productName') is not None:
-            add_Product()
+        if 'repositoryName' in data:
+            add_Repo(data.get('repositoryName'))
+        if 'productName' in data:
+            add_Product(data.get('productName'))
 
         return jsonify({
             "status": "success",
