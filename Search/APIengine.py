@@ -3,8 +3,8 @@ import urllib
 
 def iniEngine():
     # Initialize the connection to the SQL server
-    username = 'huntjac'
-    password = 'Nn39khnr!'
+    username = 'username'
+    password = 'passowrd'
     server = 'hiccup-hackathon-24.database.windows.net'
     database = 'hiccup-hackathon'
     driver = 'ODBC Driver 18 for SQL Server'
